@@ -6,6 +6,6 @@ export const connectDB = async () => {
   const MONGO_URI = process.env.MONGO_URI;
   if (!MONGO_URI) throw new Error("env variables : MONGO_URI is required");
   await connect(MONGO_URI, {
-    dbName: inProduction ? "portFolio" : "test_portFolio",
+    dbName: inProduction ? "iacc-gest" : "test_iacc-gest",
   });
 };
