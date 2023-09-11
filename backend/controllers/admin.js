@@ -1,7 +1,7 @@
 import Admin from "../models/Admin.js";
 // eslint-disable-next-line no-unused-vars
 import express from "express";
-import { compareHash, hash } from "../utils/hash.js";
+import { compareHash, hash } from "../utils/Hash.js";
 import { generateToken } from "../utils/token.js";
 class AdminController {
   /**
