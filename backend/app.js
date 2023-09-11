@@ -5,7 +5,7 @@ import { inProduction } from "./config/env.js";
 import path from "path";
 import cors from "cors";
 import { fileURLToPath } from "url";
-
+import AdminRoute from "./routes/adminRoute.js";
 const app = express();
 config({
   path: path.join(process.cwd(), ".env.local"),
@@ -38,6 +38,4 @@ connectDB()
   });
 
 
-  // MONGO_URI="mongodb+srv://coudadm:b0MezXlYq7cH8AsC@iacc-gest.glnvern.mongodb.net/?retryWrites=true&w=majority"
-// tokenSecret="it's_my_token_secret_123*"
-// PASSWORD=b0MezXlYq7cH8AsC
+app.use("/api/admin", AdminRoute);
