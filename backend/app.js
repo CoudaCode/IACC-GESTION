@@ -36,3 +36,8 @@ connectDB()
       e.message
     );
   });
+
+
+  // MONGO_URI="mongodb+srv://coudadm:b0MezXlYq7cH8AsC@iacc-gest.glnvern.mongodb.net/?retryWrites=true&w=majority"
+// tokenSecret="it's_my_token_secret_123*"
+// PASSWORD=b0MezXlYq7cH8AsC
