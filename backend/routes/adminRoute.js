@@ -6,6 +6,7 @@ const router = Router();
 router.get("/:id", withUser, AdminController.getAdmin);
 router.get("/", AdminController.getAllAdmin);
 router.post("/", AdminController.createAdmin);
+router.post("/login", AdminController.loginAdmin);
 router.put("/:id", AdminController.editAdmin);
 router.delete("/:id", withUser, AdminController.deleteAdmin);
 

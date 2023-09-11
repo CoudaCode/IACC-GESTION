@@ -37,10 +37,10 @@ class AdminController {
   static async getAllAdmin(req, res) {
     try {
       const admin = await Admin.find({});
-      if (Admin) {
+      if (admin) {
         return res.status(200).json({
           status: true,
-          message: { ...Admin },
+          message: { ...admin},
         });
       }
 
