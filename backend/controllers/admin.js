@@ -48,7 +48,7 @@ class AdminController {
 
       if (root.role !== "superAdmin" || root.role !== "admin") {
         return res.status(404).json({
-          status: false, 
+          status: false,
           message: "vous n'etes pas autorisé à effectuer cette action",
         });
       } else {
