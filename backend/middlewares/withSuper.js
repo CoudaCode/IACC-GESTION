@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import express from 'express';
-import { verifyToken } from "./../utils/token.js";
+import express from "express";
+import { verifyToken } from "../utils/token.js";
 /**
  *
  * @param {express.Request} req
@@ -9,12 +9,12 @@ import { verifyToken } from "./../utils/token.js";
  */
 const withUser = (req, res, next) => {
   const token = req.cookies.token;
-
   const verifiedToken = verifyToken(token);
   if (verifiedToken) {
-    req.admin = verifiedToken;
+    req.super = verifiedToken;
+    console.log("req.super", req.super);
   } else {
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
   next();
 };

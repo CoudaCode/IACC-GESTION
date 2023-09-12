@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import AdminRoute from "./routes/adminRoute.js";
+import clientRoute from "./routes/clientRoute.js";
+import superAdminRoute from "./routes/superAdminRoute.js";
 const app = express();
 config({
   path: path.join(process.cwd(), ".env.local"),
@@ -40,4 +42,6 @@ connectDB()
     );
   });
 
+app.use("/api/super", superAdminRoute);
 app.use("/api/admin", AdminRoute);
+app.use("/api/client", clientRoute);

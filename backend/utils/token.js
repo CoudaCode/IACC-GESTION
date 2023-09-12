@@ -7,7 +7,6 @@ import jwt from "jsonwebtoken";
  */ 
 export const generateToken = (payload) => {
   const secret = process.env.tokenSecret;
-  console.log(secret);
   if (!secret) throw new Error("env var :  jwt secret manquant");
   const token = jwt.sign(payload, secret, {
     expiresIn: 12 * 3600 * 1000,
@@ -23,7 +22,6 @@ export const generateToken = (payload) => {
 export const verifyToken = (token) => {
   try {
     console.log("token ", token);
-    console.log("verifié le token",jwt.verify(token, process.env.tokenSecret));
     return jwt.verify(token, process.env.tokenSecret);
   } catch (e) {
     console.log("ERREUR DANS VERIFY TOKEN : ", e);

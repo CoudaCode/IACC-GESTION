@@ -9,11 +9,20 @@ class clientController {
 
   static async createClient(req, res) {
     try {
-      const client = await Client.create(req.body);
-      res.status(201).json({
-        status: true,
-        message: { ...client.toObject() },
-      });
+      const admin = req.admin;
+      console.log("admin", admin.role);
+      if (admin.role !== "admin") {
+        return res.status(403).json({
+          status: false,
+          message: "vous n'etes pas autorisé à effectuer cette action",
+        });
+      } else {
+        const client = await Client.create(req.body);
+        res.status(201).json({
+          status: true,
+          message: { ...client.toObject() },
+        });
+      }
     } catch (e) {
       res.json({ status: false, message: e.message });
     }
@@ -25,15 +34,23 @@ class clientController {
   static async getClient(req, res) {
     try {
       const { id } = req.params;
+      const admin = req.admin;
+      console.log("admin", admin.role);
       const client = await Client.findById(id);
-      if (client) {
-        return res.status(200).json({
-          status: true,
-          message: { ...client.toObject() },
+      if (admin.role !== "admin") {
+        return res.status(403).json({
+          status: false,
+          message: "vous n'etes pas autorisé à effectuer cette action",
         });
+      } else {
+        if (client) {
+          return res.status(200).json({
+            status: true,
+            message: { ...client.toObject() },
+          });
+        }
+        res.status(404).json({ status: false, message: "pas de liste client" });
       }
-
-      res.status(404).json({ status: false, message: "pas de liste client" });
     } catch (e) {
       console.log("erreur");
       res
@@ -48,14 +65,23 @@ class clientController {
   static async getAllClient(req, res) {
     try {
       const client = await Client.find({});
-      if (client) {
-        return res.status(200).json({
-          status: true,
-          message: { client },
+      const admin = req.admin;
+      console.log("admin", admin);
+      if (admin.role !== "admin") {
+        return res.status(403).json({
+          status: false,
+          message: "vous n'etes pas autorisé à effectuer cette action",
         });
-      }
+      } else {
+        if (client) {
+          return res.status(200).json({
+            status: true,
+            message: { client },
+          });
+        }
 
-      res.status(404).json({ status: false, message: "pas de liste client" });
+        res.status(404).json({ status: false, message: "pas de liste client" });
+      }
     } catch (e) {
       console.log("erreur");
       res
@@ -71,15 +97,24 @@ class clientController {
   static async deleteClient(req, res) {
     try {
       const { id } = req.params;
+      const admin = req.admin;
+      console.log("admin", admin);
       const client = await Client.deleteOne(id);
-      if (client) {
-        return res.status(200).json({
-          status: true,
-          message: "succes",
+      if (admin.role !== "admin") {
+        return res.status(403).json({
+          status: false,
+          message: "vous n'etes pas autorisé à effectuer cette action",
         });
-      }
+      } else {
+        if (client) {
+          return res.status(200).json({
+            status: true,
+            message: "succes",
+          });
+        }
 
-      res.status(404).json({ status: false, message: "pas de liste client" });
+        res.status(404).json({ status: false, message: "pas de liste client" });
+      }
     } catch (e) {
       console.log("erreur");
       res
@@ -96,16 +131,24 @@ class clientController {
     try {
       const { ...body } = req.body;
       const { id } = req.params;
+      const admin = req.admin;
       const client = await Client.findById(id);
-      if (client) {
-        const updateClient = await Client.updateOne({ _id: id }, { ...body });
-        return res.status(200).json({
-          status: true,
-          message: { ...updateClient.toObject() },
+      if (admin.role !== "admin") {
+        return res.status(403).json({
+          status: false,
+          message: "vous n'etes pas autorisé à effectuer cette action",
         });
-      }
+      } else {
+        if (client) {
+          const updateClient = await Client.updateOne({ _id: id }, { ...body });
+          return res.status(200).json({
+            status: true,
+            message: { ...updateClient.toObject() },
+          });
+        }
 
-      res.status(404).json({ status: false, message: "pas de liste client" });
+        res.status(404).json({ status: false, message: "pas de liste client" });
+      }
     } catch (e) {
       res
         .status(500)

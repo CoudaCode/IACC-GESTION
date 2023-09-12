@@ -24,7 +24,7 @@ const clientSchema = new Schema({
   categorie: {
     type: String,
     required: true,
-    enum: ["AUtomobile", "Sante"],
+    enum: ["Automobile", "Sante"],
   },
   periode: {
     type: String,

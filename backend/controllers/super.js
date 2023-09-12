@@ -1,108 +1,97 @@
-import Admin from "./../models/admin.js";
+import superAdmin from "./../models/superAdmin.js";
 // eslint-disable-next-line no-unused-vars
 import express from "express";
 import { compareHash, hash } from "../utils/Hash.js";
 import { generateToken } from "../utils/token.js";
-class AdminController {
+class superAdminController {
   /**
    *
    * @param {express.Request} req
    * @param {express.Response} res
    */
-  static async getAdmin(req, res) {
+  static async getSuperAdmin(req, res) {
     const { id } = req.params;
     try {
-      const admin = await Admin.findById(id);
-      const root = req.admin;
-
-      if (root.role !== "superAdmin") {
-        return res.status(404).json({
-          status: false,
-          message: "vous n'etes pas autorisé à effectuer cette action",
-        });
-      } else {
-        if (admin) {
-          return res.status(200).json({
-            status: true,
-            message: { ...admin.toObject(), password: undefined },
-          });
-        }
-        res.status(404).json({ status: false, message: " non trouvé" });
+      const auth = req.admin;
+      if (auth.role === "admin") {
+        return res
+          .status(401)
+          .json({ status: false, message: "action non authorisé" });
       }
-    } catch (e) {
-      console.log("erreur");
-      res
-        .status(500)
-        .json({ status: false, message: "Erreur interne du serveur" });
-    }
-  }
-  /**
-   *
-   * @param {express.Request} req
-   * @param {express.Response} res
-   */
-  static async getAllAdmin(req, res) {
-    try {
-      const admin = await Admin.find({});
-      const root = req.admin;
-
-      if (root.role !== "superAdmin" || root.role !== "admin") {
-        return res.status(404).json({
-          status: false, 
-          message: "vous n'etes pas autorisé à effectuer cette action",
-        });
-      } else {
-        if (admin) {
-          return res.status(200).json({
-            status: true,
-            message: { ...admin },
-          });
-        }
-        res
-          .status(404)
-          .json({ status: false, message: "pas de liste utilisateur" });
-      }
-    } catch (e) {
-      console.log("erreur");
-      res
-        .status(500)
-        .json({ status: false, message: "Erreur interne du serveur" });
-    }
-  }
-
-  /**
-   *
-   * @param {express.Request} req
-   * @param {express.Response} res
-   */
-  static async createAdmin(req, res) {
-    // eslint-disable-next-line no-unused-vars
-    const { role, password, ...body } = req.body;
-
-    try {
-      const root = req.admin;
-
-      if (root.role !== "superAdmin") {
-        return res.status(404).json({
-          status: false,
-          message: "vous n'etes pas autorisé à effectuer cette action",
-        });
-      } else {
-        const exist = Admin.findOne({ email });
-        if (exist) {
-          return res
-            .status(409)
-            .json({ status: false, message: "utilisateur existe déjà" });
-        }
-        const admin = await Admin.create({
-          ...body,
-          password: await hash(password),
-        });
-        res.status(201).json({
+      const superAdm = await superAdmin.findById(id);
+      if (superAdm) {
+        return res.status(200).json({
           status: true,
-          message: { ...admin.toObject(), password: undefined },
+          message: { ...superAdm.toObject(), password: undefined },
         });
       }
+
+      res.status(404).json({ status: false, message: " non trouvé" });
+    } catch (e) {
+      console.log("erreur");
+      res
+        .status(500)
+        .json({ status: false, message: "Erreur interne du serveur" });
+    }
+  }
+  /**
+   *
+   * @param {express.Request} req
+   * @param {express.Response} res
+   */
+  static async getAllSuperAdmin(req, res) {
+    try {
+      const superAdm = await superAdmin.find({});
+      const auth = req.admin;
+
+      if (auth.role === "admin") {
+        return res
+          .status(401)
+          .json({ status: false, message: "action non authorisé" });
+      }
+      if (superAdm) {
+        return res.status(200).json({
+          status: true,
+          message: { ...superAdm },
+        });
+      }
+      res
+        .status(404)
+        .json({ status: false, message: "pas de liste utilisateur" });
+    } catch (e) {
+      console.log("erreur");
+      res
+        .status(500)
+        .json({ status: false, message: "Erreur interne du serveur" });
+    }
+  }
+
+  /**
+   *
+   * @param {express.Request} req
+   * @param {express.Response} res
+   */
+  static async createSuperAdmin(req, res) {
+    // eslint-disable-next-line no-unused-vars
+
+    try {
+      const { role, password, email, ...body } = req.body;
+      const exist = await superAdmin.findOne({ email });
+      if (exist) {
+        return res
+          .status(409)
+          .json({ status: false, message: "utilisateur existe déjà" });
+      }
+
+      const superAdm = await superAdmin.create({
+        ...body,
+        email,
+        password: await hash(password),
+      });
+      res.status(201).json({
+        status: true,
+        message: { ...superAdm.toObject(), password: undefined },
+      });
     } catch (e) {
       res.json({ status: false, message: e.message });
     }
@@ -113,17 +102,17 @@ class AdminController {
    * @param {express.Request} req
    * @param {express.Response} res
    */
-  static async deleteAdmin(req, res) {
+  static async deleteSuperAdmin(req, res) {
     const { id } = req.params;
     const auth = req.admin;
 
     try {
-      if (id !== auth._id || auth.role !== "superAdmin") {
+      if (auth.role === "admin") {
         return res
           .status(401)
           .json({ status: false, message: "action non authorisé" });
       }
-      await Admin.deleteOne({ _id: id });
+      await superAdmin.deleteOne({ _id: id });
       res.status(200).json({ status: true, message: "succès" });
     } catch (e) {
       res.json({ status: false, message: e.message });
@@ -177,21 +166,21 @@ class AdminController {
   //     res.json({ status: false, message: e.message });
   //   }
   // }
-  static async editAdmin(req, res) {
+  static async editSuperAdmin(req, res) {
     const { role, password, ...body } = req.body;
     const { id } = req.params;
 
     try {
-      const admin = await Admin.findById(id);
+      const superAdm = await superAdmin.findById(id);
       const auth = req.admin;
 
-      if (!admin) {
+      if (!superAdm) {
         return res
           .status(404)
           .json({ status: false, message: "Utilisateur non trouvé" });
       }
 
-      if (auth._id.toString() !== id || auth.role !== "superAdmin") {
+      if (auth.role === "admin") {
         return res
           .status(401)
           .json({ status: false, message: "Action non autorisée" });
@@ -203,7 +192,7 @@ class AdminController {
 
       if (password) {
         const hashedNewPassword = await hash(password);
-        await Admin.updateOne(
+        await superAdm.updateOne(
           { _id: id },
           { ...body, password: hashedNewPassword }
         );
@@ -223,18 +212,18 @@ class AdminController {
    * @param {express.Request} req
    * @param {express.Response} res
    */
-  static async loginAdmin(req, res) {
+  static async loginSuperAdmin(req, res) {
     const { email, password } = req.body;
 
     try {
-      const admin = await Admin.findOne({ email });
-      if (admin && (await compareHash(password, admin.password))) {
+      const superAdm = await superAdmin.findOne({ email });
+      if (superAdm && (await compareHash(password, superAdm.password))) {
         // l'utilisateur est connecté
-        console.log(generateToken(admin.toObject()));
-        res.cookie("token", generateToken(admin.toObject()));
+        console.log(generateToken(superAdm.toObject()));
+        res.cookie("token", generateToken(superAdm.toObject()));
         return res.status(200).json({
           status: true,
-          admin,
+          superAdm,
         });
       }
       res.status(401).json({ status: false, message: "identifiant invalide" });
@@ -245,4 +234,4 @@ class AdminController {
   }
 }
 
-export default AdminController;
+export default superAdminController;
