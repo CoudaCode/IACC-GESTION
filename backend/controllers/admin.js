@@ -1,4 +1,4 @@
-import Admin from "../models/Admin.js";
+import Admin from "./../models/admin.js";
 // eslint-disable-next-line no-unused-vars
 import express from "express";
 import { compareHash, hash } from "../utils/Hash.js";
@@ -12,9 +12,9 @@ class AdminController {
   static async getAdmin(req, res) {
     const { id } = req.params;
     try {
-      const Admin = await Admin.findById(id);
-
-      if (Admin) {
+      const admin = await Admin.findById(id);
+      String;
+      if (admin) {
         return res.status(200).json({
           status: true,
           message: { ...admin.toObject(), password: undefined },
@@ -40,7 +40,7 @@ class AdminController {
       if (admin) {
         return res.status(200).json({
           status: true,
-          message: { ...admin},
+          message: { ...admin },
         });
       }
 
@@ -121,7 +121,7 @@ class AdminController {
 
       if ((await compareHash(password, admin.password)) && auth._id === id) {
         let updatedAdmin;
-
+        
         if (newPassword) {
           updatedAdmin = await Admin.updateOne(
             { _id: id },
@@ -159,8 +159,8 @@ class AdminController {
       const admin = await Admin.findOne({ email });
       if (admin && (await compareHash(password, admin.password))) {
         // l'utilisateur est connecté
-        console.log(generateToken(Admin.toObject()));
-        res.cookie("token", generateToken(Admin.toObject()));
+        console.log(generateToken(admin.toObject()));
+        res.cookie("token", generateToken(admin.toObject()));
         return res.status(200).json({
           status: true,
           admin,
