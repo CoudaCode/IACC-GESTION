@@ -77,7 +77,7 @@ class AdminController {
    */
   static async createAdmin(req, res) {
     // eslint-disable-next-line no-unused-vars
-    const { role, password, ...body } = req.body;
+    const {password, email, ...body } = req.body;
 
     try {
       const root = req.admin;
@@ -88,13 +88,14 @@ class AdminController {
           message: "vous n'etes pas autorisé à effectuer cette action",
         });
       } else {
-        const exist = Admin.findOne({ email });
+        const exist = await Admin.findOne({email});
         if (exist) {
           return res
             .status(409)
             .json({ status: false, message: "utilisateur existe déjà" });
         }
         const admin = await Admin.create({
+          email,
           ...body,
           password: await hash(password),
         });

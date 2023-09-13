@@ -12,7 +12,7 @@ const withUser = (req, res, next) => {
   const verifiedToken = verifyToken(token);
   if (verifiedToken) {
     req.admin = verifiedToken;
-    console.log("req.admin", req.admin);
+    // console.log("req.admin", req.admin);
   } else {
     return res.redirect("/login");
   }

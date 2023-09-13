@@ -19,19 +19,15 @@ class superAdminController {
           .json({ status: false, message: "action non authorisé" });
       }
       const superAdm = await superAdmin.findById(id);
-      if (superAdm) {
-        return res.status(200).json({
-          status: true,
-          message: { ...superAdm.toObject(), password: undefined },
-        });
+      if (!superAdm) {
+        res.status(404).json({ status: false, message: "non trouvé" });
       }
-
-      res.status(404).json({ status: false, message: " non trouvé" });
+      return res.status(200).json({
+        status: true,
+        message: { ...superAdm.toObject(), password: undefined },
+      });
     } catch (e) {
-      console.log("erreur");
-      res
-        .status(500)
-        .json({ status: false, message: "Erreur interne du serveur" });
+      res.status(500).json({ status: false, message: e.message });
     }
   }
   /**
@@ -49,15 +45,15 @@ class superAdminController {
           .status(401)
           .json({ status: false, message: "action non authorisé" });
       }
-      if (superAdm) {
-        return res.status(200).json({
-          status: true,
-          message: { ...superAdm },
-        });
+      if (!superAdm) {
+        res
+          .status(404)
+          .json({ status: false, message: "pas de liste utilisateur" });
       }
-      res
-        .status(404)
-        .json({ status: false, message: "pas de liste utilisateur" });
+      return res.status(200).json({
+        status: true,
+        message: { ...superAdm },
+      });
     } catch (e) {
       console.log("erreur");
       res
@@ -112,7 +108,12 @@ class superAdminController {
           .status(401)
           .json({ status: false, message: "action non authorisé" });
       }
-      await superAdmin.deleteOne({ _id: id });
+      const superAdm = await superAdmin.findById(id);
+      // console.log("superAdm", superAdm);
+      if (!superAdm) {
+        return res.status(404).json({ status: false, message: "non trouvé" });
+      }
+      await superAdmin.deleteOne({ id });
       res.status(200).json({ status: true, message: "succès" });
     } catch (e) {
       res.json({ status: false, message: e.message });
@@ -167,10 +168,9 @@ class superAdminController {
   //   }
   // }
   static async editSuperAdmin(req, res) {
-    const { role, password, ...body } = req.body;
-    const { id } = req.params;
-
     try {
+      const { role, password, newPassord, ...body } = req.body;
+      const { id } = req.params;
       const superAdm = await superAdmin.findById(id);
       const auth = req.admin;
 
@@ -186,27 +186,27 @@ class superAdminController {
           .json({ status: false, message: "Action non autorisée" });
       }
 
-      // if (password && !(await compareHash(password, admin.password))) {
-      //   return res.status(401).json({ status: false, message: "Mot de passe incorrect" });
-      // }
-
-      if (password) {
-        const hashedNewPassword = await hash(password);
-        await superAdm.updateOne(
-          { _id: id },
-          { ...body, password: hashedNewPassword }
-        );
+      if (password && !(await compareHash(password, auth.password))) {
+        return res
+          .status(401)
+          .json({ status: false, message: "Mot de passe incorrect" });
       }
-
+      let updateSuper;
+      if (newPassord) {
+        updateSuper = await superAdmin.updateOne(
+          { _id: id },
+          { ...body, password: await hash(newPassord) }
+        );
+      } else {
+        updateSuper = await superAdmin.updateOne({ _id: id }, { ...body });
+      }
       return res
         .status(200)
-        .json({ status: true, message: "Modification réussie" });
+        .json({ status: true, message: "Modification reuissie !!!" });
     } catch (e) {
-      console.log(e);
       res.status(500).json({ status: false, message: e.message });
     }
   }
-
   /**
    *
    * @param {express.Request} req
