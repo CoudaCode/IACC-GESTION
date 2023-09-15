@@ -14,23 +14,23 @@ class AdminController {
     try {
       const admin = await Admin.findById(id);
       const root = req.admin;
-
-      if (root.role !== "superAdmin") {
-        return res.status(404).json({
-          status: false,
-          message: "vous n'etes pas autorisé à effectuer cette action",
-        });
-      } else {
-        if (admin) {
-          return res.status(200).json({
-            status: true,
-            message: { ...admin.toObject(), password: undefined },
-          });
-        }
-        res.status(404).json({ status: false, message: " non trouvé" });
+      // console.log(root);
+      // if (root.role !== "superAdmin" || root.role !== "admin") {
+      //   return res.status(404).json({
+      //     status: false,
+      //     message: "vous n'etes pas autorisé à effectuer cette action",
+      //   });
+      // } else {
+      if (!admin) {
+        return res.status(404).json({ status: false, message: " non trouvé" });
       }
+      return res.status(200).json({
+        status: true,
+        message: { ...admin.toObject(), password: undefined },
+      });
+      // }
     } catch (e) {
-      console.log("erreur");
+      // console.log("erreur");
       res
         .status(500)
         .json({ status: false, message: "Erreur interne du serveur" });
@@ -45,25 +45,23 @@ class AdminController {
     try {
       const admin = await Admin.find({});
       const root = req.admin;
-
-      if (root.role !== "superAdmin" || root.role !== "admin") {
+      if (root.role == "admin") {
         return res.status(404).json({
           status: false,
           message: "vous n'etes pas autorisé à effectuer cette action",
         });
       } else {
-        if (admin) {
-          return res.status(200).json({
-            status: true,
-            message: { ...admin },
-          });
+        if (!admin) {
+          return res
+            .status(404)
+            .json({ status: false, message: "pas de liste utilisateur" });
         }
-        res
-          .status(404)
-          .json({ status: false, message: "pas de liste utilisateur" });
       }
+      return res.status(200).json({
+        status: true,
+        message: { ...admin },
+      });
     } catch (e) {
-      console.log("erreur");
       res
         .status(500)
         .json({ status: false, message: "Erreur interne du serveur" });
@@ -77,7 +75,7 @@ class AdminController {
    */
   static async createAdmin(req, res) {
     // eslint-disable-next-line no-unused-vars
-    const {password, email, ...body } = req.body;
+    const { password, email, ...body } = req.body;
 
     try {
       const root = req.admin;
@@ -88,7 +86,7 @@ class AdminController {
           message: "vous n'etes pas autorisé à effectuer cette action",
         });
       } else {
-        const exist = await Admin.findOne({email});
+        const exist = await Admin.findOne({ email });
         if (exist) {
           return res
             .status(409)
@@ -119,13 +117,18 @@ class AdminController {
     const auth = req.admin;
 
     try {
-      if (id !== auth._id || auth.role !== "superAdmin") {
-        return res
-          .status(401)
-          .json({ status: false, message: "action non authorisé" });
+      // if (id !== auth._id || auth.role !== "superAdmin") {
+      //   return res
+      //     .status(401)
+      //     .json({ status: false, message: "action non authorisé" });
+      // }
+      const admin = await Admin.findById(id);
+
+      if (!admin) {
+        return res.status(404).json({ status: false, message: "non trouvé" });
       }
       await Admin.deleteOne({ _id: id });
-      res.status(200).json({ status: true, message: "succès" });
+      return res.status(200).json({ status: true, message: "succès" });
     } catch (e) {
       res.json({ status: false, message: e.message });
     }
@@ -135,53 +138,9 @@ class AdminController {
    * @param {express.Request} req
    * @param {express.Response} res
    */
-  // static async editAdmin(req, res) {
-  //   // eslint-disable-next-line no-unused-vars
-  //   const { role, password, newPassword, ...body } = req.body;
-  //   const { id } = req.params;
-  //   console.log("newPassword", newPassword)
-  //   try {
-  //     const admin = await Admin.findById(id);
-  //     const auth = req.admin;
-  //     console.log("auth", auth);
-  //     console.log("admin", admin);
-  //     if (admin.role !== "admin") {
-  //       return res
-  //         .status(404)
-  //         .json({ status: false, message: "utiliseur non trouvé" });
-  //     }
-  //     if ((await compareHash(password, admin.password)) && auth._id === id) {
-
-  //       console.log('alert', await compareHash(password, admin.password))
-  //       let updatedAdmin;
-  //       if (newPassword) {
-  //         updatedAdmin = await Admin.updateOne(
-  //           { _id: id },
-  //           {
-  //             ...body,
-  //             password: await hash(newPassword),
-  //           }
-  //         );
-  //       } else {
-  //         updatedAdmin = await Admin.updateOne({ _id: id }, { ...body });
-  //       }
-
-  //       return res.status(200).json({
-  //         status: true,
-  //         message: { ...updatedAdmin, password: undefined },
-  //       });
-  //     }
-
-  //     res.status(401).json({ status: false, message: "action non authorisé" });
-  //   } catch (e) {
-  //     console.log(e);
-  //     res.json({ status: false, message: e.message });
-  //   }
-  // }
   static async editAdmin(req, res) {
-    const { role, password, ...body } = req.body;
+    const { role, password, newPassword, ...body } = req.body;
     const { id } = req.params;
-
     try {
       const admin = await Admin.findById(id);
       const auth = req.admin;
@@ -192,27 +151,29 @@ class AdminController {
           .json({ status: false, message: "Utilisateur non trouvé" });
       }
 
-      if (auth._id.toString() !== id || auth.role !== "superAdmin") {
+      if (auth.role == "superAdmin") {
         return res
           .status(401)
           .json({ status: false, message: "Action non autorisée" });
       }
 
-      // if (password && !(await compareHash(password, admin.password))) {
-      //   return res.status(401).json({ status: false, message: "Mot de passe incorrect" });
-      // }
-
-      if (password) {
-        const hashedNewPassword = await hash(password);
-        await Admin.updateOne(
-          { _id: id },
-          { ...body, password: hashedNewPassword }
-        );
+      if (password && !(await compareHash(password, auth.password))) {
+        return res
+          .status(401)
+          .json({ status: false, message: "Mot de passe incorrect" });
       }
-
+      let updateSuper;
+      if (newPassword) {
+        updateSuper = await Admin.updateOne(
+          { _id: id },
+          { ...body, password: await hash(newPassword) }
+        );
+      } else {
+        updateSuper = await Admin.updateOne({ _id: id }, { ...body });
+      }
       return res
         .status(200)
-        .json({ status: true, message: "Modification réussie" });
+        .json({ status: true, message: "Modification reuissie !!!" });
     } catch (e) {
       console.log(e);
       res.status(500).json({ status: false, message: e.message });

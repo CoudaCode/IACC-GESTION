@@ -10,7 +10,7 @@ import { verifyToken } from "../utils/token.js";
 const withUser = (req, res, next) => {
   const token = req.cookies.token;
   const verifiedToken = verifyToken(token);
-  if (verifiedToken) {
+  if (verifiedToken){
     req.admin = verifiedToken;
     // console.log("req.admin", req.admin);
   } else {

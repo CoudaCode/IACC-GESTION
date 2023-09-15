@@ -1,4 +1,5 @@
 import superAdmin from "./../models/superAdmin.js";
+import Admin from "../models/admin.js";
 // eslint-disable-next-line no-unused-vars
 import express from "express";
 import { compareHash, hash } from "../utils/Hash.js";

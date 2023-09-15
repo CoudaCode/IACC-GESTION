@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
  *
  * @param {any} payload
  * @returns generated token
- */ 
+ */
 export const generateToken = (payload) => {
   const secret = process.env.tokenSecret;
   if (!secret) throw new Error("env var :  jwt secret manquant");
