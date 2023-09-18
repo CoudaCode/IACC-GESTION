@@ -9,13 +9,14 @@ const clientSchema = new Schema({
     type: String,
     required: true,
   },
-  adresse: {
+  addresse: {
     type: String,
     required: true,
   },
   telephone: {
     type: Number,
     required: true,
+    length: 25,
   },
   email: {
     type: String,
@@ -26,31 +27,35 @@ const clientSchema = new Schema({
     required: true,
     enum: ["Automobile", "Sante"],
   },
-  periode: {
-    type: String,
-    required: true,
-    enum: ["Mensuelle", "Trimestrielle", "Semestrielle", "Annuelle"],
+  assurance: {
+    type: Schema.Types.ObjectId,
+    refPath: "categorie",
   },
-  dateEffet: {
-    type: Date,
-    required: true,
-  },
-  dateEcheance: {
-    type: Date, 
-    required: true,
-  },
-  montant: {
-    type: Number,
-    required: true,
-  },
-  commission: {
-    type: Number,
-    required: true,
-  },
-  MtnCompagnie: {
-    type: Number,
-    required: true,
-  },
+  // periode: {
+  //   type: String,
+  //   required: true,
+  //   enum: ["Mensuelle", "Trimestrielle", "Semestrielle", "Annuelle"],
+  // },
+  // dateEffet: {
+  //   type: Date,
+  //   required: true,
+  // },
+  // dateEcheance: {
+  //   type: Date,
+  //   required: true,
+  // },
+  // montant: {
+  //   type: Number,
+  //   required: true,
+  // },
+  // commission: {
+  //   type: Number,
+  //   required: true,
+  // },
+  // MtnCompagnie: {
+  //   type: Number,
+  //   required: true,
+  // },
 });
 
 export default model("Client", clientSchema);

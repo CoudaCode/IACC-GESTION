@@ -10,7 +10,6 @@ class clientController {
   static async createClient(req, res) {
     try {
       const admin = req.admin;
-      console.log("admin", admin.role);
       if (admin.role !== "admin") {
         return res.status(403).json({
           status: false,
@@ -35,7 +34,6 @@ class clientController {
     try {
       const { id } = req.params;
       const admin = req.admin;
-      console.log("admin", admin.role);
       const client = await Client.findById(id);
       if (admin.role !== "admin") {
         return res.status(403).json({
@@ -66,7 +64,8 @@ class clientController {
     try {
       const client = await Client.find({});
       const admin = req.admin;
-      console.log("admin", admin);
+      const ClienCreate = req.session.ClientId
+      console.log("client create", ClienCreate);
       if (admin.role !== "admin") {
         return res.status(403).json({
           status: false,
@@ -153,6 +152,43 @@ class clientController {
       res
         .status(500)
         .json({ status: false, message: "Erreur interne du serveur" });
+    }
+  }
+
+  /**
+   * @param {express.Request} req
+   * @param {express.Response} res
+   */
+
+  static async getAutomobile(req, res) {
+    try {
+      const admin = await Client.find({ categorie: "Automobile" });
+      if (!admin) {
+        return res
+          .status(403)
+          .json({ status: false, message: "pas de liste client" });
+      }
+      res.status(200).json({ status: true, message: { ...admin.toObject() } });
+    } catch (e) {
+      res.status(500).json({ status: false, message: e.message });
+    }
+  }
+  /**
+   * @param {express.Request} req
+   * @param {express.Response} res
+   */
+
+  static async getSante(req, res) {
+    try {
+      const admin = await Client.find({ categorie: "Sante" });
+      if (!admin) {
+        return res
+          .status(403)
+          .json({ status: false, message: "pas de liste client" });
+      }
+      res.status(200).json({ status: true, message: { ...admin.toObject() } });
+    } catch (e) {
+      res.status(500).json({ status: false, message: e.message });
     }
   }
 }
