@@ -9,16 +9,28 @@
   height: 100%;
 }
 .Dashbord .ant-layout-sider-children {
-  background: #1A2639;
+  background: #1a2639;
 }
 .Dashbord .ant-menu-item {
   margin-bottom: 2rem;
 }
-.Dashbord .ant-menu-item-selected{
-  background-color: #4D8076;
+.Dashbord .ant-menu-item-selected {
+  background-color: #4d8076;
   color: white;
 }
-.Dashbord .ant-menu{
-  background-color: #1A2639;
+.Dashbord .ant-menu {
+  background-color: #1a2639;
   color: white;
+}
+
+.Dashbord .cardre {
+  display: flex;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.Dashbord .ant-card-head {
+  border-bottom: 1px solid #001529;
 }
