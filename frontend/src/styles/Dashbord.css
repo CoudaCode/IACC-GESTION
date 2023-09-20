@@ -1,0 +1,24 @@
+.Dashbord {
+  width: 100%;
+  height: 70vh;
+  margin-top: 2rem;
+  background-color: var(--colorPrimary);
+}
+
+.Dashbord .ant-layout-has-sider {
+  height: 100%;
+}
+.Dashbord .ant-layout-sider-children {
+  background: #1A2639;
+}
+.Dashbord .ant-menu-item {
+  margin-bottom: 2rem;
+}
+.Dashbord .ant-menu-item-selected{
+  background-color: #4D8076;
+  color: white;
+}
+.Dashbord .ant-menu{
+  background-color: #1A2639;
+  color: white;
+}
