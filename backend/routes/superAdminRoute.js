@@ -3,7 +3,6 @@ import withUser from "../middlewares/withAdmin.js";
 import superAdminController from "../controllers/super.js";
 import AdminController from "../controllers/admin.js";
 const router = Router();
-
 // SuperAmdin --> /superAdmin
 router.get("/:id", withUser, superAdminController.getSuperAdmin);
 router.get("/", withUser, superAdminController.getAllSuperAdmin);
