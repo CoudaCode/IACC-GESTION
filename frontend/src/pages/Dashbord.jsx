@@ -10,6 +10,7 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme, Space } from "antd";
+import { Link } from "react-router-dom";
 const { Header, Sider, Content, Footer } = Layout;
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -101,6 +102,7 @@ const Dashboard = () => {
             <Content style={contentStyle}>Content</Content>
             <Footer style={footerStyle}>Footer</Footer>
           </Layout>
+        <Link to={"/inscription"}>Inscription</Link>
         </Layout>
       </div>
     </>
