@@ -1,0 +1,37 @@
+.Nouvelle {
+    width: 100%;
+    height: 70vh;
+    margin-top: 2rem;
+    background-color: var(--colorPrimary);
+  }
+  
+  .Nouvelle .ant-layout-has-sider {
+    height: auto;
+  }
+  .Nouvelle .ant-layout-sider-children {
+    background: #1a2639;
+  }
+  .Nouvelle .ant-menu-item {
+    margin-bottom: 2rem;
+  }
+  .Nouvelle .ant-menu-item-selected {
+    background-color: #4d8076;
+    color: white;
+  }
+  .Nouvelle .ant-menu {
+    background-color: #1a2639;
+    color: white;
+  }
+  
+  .Nouvelle .cardre {
+    display: flex;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .Nouvelle .ant-card-head {
+    border-bottom: 1px solid #001529;
+  }
+  

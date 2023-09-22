@@ -1,7 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-import "./../styles/Dashbord.css";
+import "./../styles/Suivi.css";
 import {
   RedoOutlined,
   UnorderedListOutlined,
@@ -12,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Card, theme, Menu } from "antd";
 import { Link } from "react-router-dom";
-const Dashboard = () => {
+const Suivi = () => {
   const { Header, Sider, Content } = Layout;
 
   const headerStyle = {
@@ -40,7 +38,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="Dashbord">
+      <div className="Suivi">
         <Layout>
           <Sider style={siderStyle}>
             <div className="photo" style={{ marginTop: "2rem" }}>
@@ -51,7 +49,7 @@ const Dashboard = () => {
                 height="100"
               />
             </div>
-            <Menu mode="inline" defaultSelectedKeys={["1"]}>
+            <Menu mode="inline" defaultSelectedKeys={["5"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 <Link to="/">Dashboard</Link>
               </Menu.Item>
@@ -97,6 +95,10 @@ const Dashboard = () => {
                   <h2>100Clients</h2>
                 </Card>
               </div>
+
+              <div className="container">
+                  
+              </div>
             </Content>
           </Layout>
         </Layout>
@@ -104,4 +106,4 @@ const Dashboard = () => {
     </>
   );
 };
-export default Dashboard;
+export default Suivi;
