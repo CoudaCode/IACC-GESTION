@@ -11,10 +11,10 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { Layout, Card, theme, Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const { Header, Sider, Content } = Layout;
-
+  const navigate = useNavigate()
   const headerStyle = {
     textAlign: "center",
     color: "#fff",
@@ -51,7 +51,7 @@ const Dashboard = () => {
                 height="100"
               />
             </div>
-            <Menu mode="inline" defaultSelectedKeys={["1"]}>
+            {/* <Menu mode="inline" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 <Link to="/">Dashboard</Link>
               </Menu.Item>
@@ -70,7 +70,50 @@ const Dashboard = () => {
               <Menu.Item key="6" icon={<ArrowLeftOutlined />}>
                 <Link to="/login">Deconnexion</Link>
               </Menu.Item>
-            </Menu>
+            </Menu> */}
+             <Menu
+              mode="inline"
+              onClick={({key})=> navigate(key)}
+              defaultSelectedKeys={["/"]}
+              items={[
+                {
+                  key: "/",
+                  icon: <DashboardOutlined />,
+                  label: "Dashboard",
+                  link: "/",
+                 },
+                {
+                  key: "nouvelle-affaire",
+                  icon: <UserAddOutlined />,
+                  label: "Nouvelle Affaire",
+                  link: "/nouvelle-affaire",
+                },
+                {
+                  key: "renouvellement",
+                  icon: <RedoOutlined />,
+                  label: "Renouvellement",
+                  link: "/renouvellement",
+                },
+                {
+                  key: "bilan",
+                  icon: <UnorderedListOutlined />,
+                  label: "Bilan",
+                  link: "/bilan",
+                },
+                {
+                  key: "suivi",
+                  icon: <UploadOutlined />,
+                  label: "Suivi",
+                  link: "/suivi",
+                },
+                {
+                  key: "login",
+                  icon: <ArrowLeftOutlined />,
+                  label: "Deconnexion",
+                  link: "/login",
+                },
+              ]}
+            />
           </Sider>
           <Layout>
             <Header style={headerStyle}>IACC GESTION</Header>

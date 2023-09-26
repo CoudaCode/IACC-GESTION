@@ -1,37 +1,131 @@
 .Nouvelle {
-    width: 100%;
-    height: 70vh;
-    margin-top: 2rem;
-    background-color: var(--colorPrimary);
-  }
-  
-  .Nouvelle .ant-layout-has-sider {
-    height: auto;
-  }
-  .Nouvelle .ant-layout-sider-children {
-    background: #1a2639;
-  }
-  .Nouvelle .ant-menu-item {
-    margin-bottom: 2rem;
-  }
-  .Nouvelle .ant-menu-item-selected {
-    background-color: #4d8076;
-    color: white;
-  }
-  .Nouvelle .ant-menu {
-    background-color: #1a2639;
-    color: white;
-  }
-  
-  .Nouvelle .cardre {
-    display: flex;
-    gap: 1.5rem;
-    padding-top: 1rem;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
-  .Nouvelle .ant-card-head {
-    border-bottom: 1px solid #001529;
-  }
-  
+  width: 100%;
+  height: 70vh;
+  margin-top: 2rem;
+  background-color: var(--colorPrimary);
+}
+
+.Nouvelle .ant-layout{
+  height: 100%;
+}
+.Nouvelle .ant-layout-sider-children {
+  background: #1a2639;
+}
+.Nouvelle .ant-menu-item {
+  margin-bottom: 2rem;
+}
+.Nouvelle .ant-menu-item-selected {
+  background-color: #4d8076;
+  color: white;
+}
+.Nouvelle .ant-menu {
+  background-color: #1a2639;
+  color: white;
+}
+
+.Nouvelle .cardre {
+  display: flex;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.Nouvelle .ant-card-head {
+  border-bottom: 1px solid #001529;
+}
+/* Nouvelle.css */
+
+.Nouvelle {
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.layout-content {
+  background-color: #f3f3f3;
+  padding: 1.3rem;
+  border-radius: 5px;
+}
+
+/* MonFormulaire.css */
+
+/* Style du conteneur principal */
+.Nouvelle .formContent {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1.3rem;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  text-align: center;
+} 
+
+/* Style du titre du formulaire */
+.Nouvelle h2 {
+  color: #333;
+  margin-bottom: 1.3rem;
+  text-align: center;
+} 
+
+/* Style des champs de formulaire */
+ .Nouvelle .form-group {
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
+ }
+
+/* Style des étiquettes des champs */
+.form-label {
+  font-weight: bold;
+  color: #555;
+}
+
+/* Style des contrôles de formulaire */
+.Nouvelle .form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+/* Style du bouton de soumission */
+.Nouvelle .btn-primary {
+  background-color:  #1a2639;
+  color: white;
+  padding: 10px 1.3rem;
+  margin-top: 1.1rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 	1.1rem;
+}
+
+.Nouvelle .btn-primary:hover {
+  background-color: #0056b3;
+} 
+
+
+/* MonFormulaire.css */
+
+.custom-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #333; 
+}
+
+.custom-select:hover {
+  border-color: #007bff; 
+}
+
+/* Style au focus */
+.custom-select:focus {
+  outline: none;
+  border-color: #4d8076;
+  box-shadow: 0 0 5px #4d8076; 
+}

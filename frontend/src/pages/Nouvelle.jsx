@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import "./../styles/Nouvelle.css";
 import {
   RedoOutlined,
@@ -10,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Card, theme, Menu } from "antd";
 import { Link } from "react-router-dom";
+import { Form, Button, Row, Col } from "react-bootstrap";
 const Nouvelle = () => {
   const { Header, Sider, Content } = Layout;
 
@@ -35,7 +37,49 @@ const Nouvelle = () => {
     color: "#fff",
     backgroundColor: "#3ba0e9",
   };
+  const [formData, setFormData] = useState({
+    nom: "",
+    prenom: "",
+    addresse: "",
+    telephone: "",
+    email: "",
+    periode: "",
+    // Ajoutez d'autres champs du formulaire ici
+  });
 
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    console.log(value);
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Effectuez la validation des données ici (par exemple, vérifiez si les champs sont remplis correctement)
+    if (
+      formData.nom &&
+      formData.prenom &&
+      formData.addresse &&
+      formData.telephone &&
+      formData.email &&
+      formData.periode
+    ) {
+      // Envoyez les données du formulaire à votre backend ou effectuez d'autres actions nécessaires
+      console.log("Données du formulaire soumises :", formData);
+      // Réinitialisez le formulaire après la soumission
+      setFormData({
+        nom: "",
+        prenom: "",
+        addresse: "",
+        telephone: "",
+        email: "",
+        periode: "",
+        // Réinitialisez les autres champs du formulaire ici
+      });
+    } else {
+      alert("Veuillez remplir tous les champs obligatoires.");
+    }
+  };
   return (
     <>
       <div className="Nouvelle">
@@ -73,28 +117,75 @@ const Nouvelle = () => {
           <Layout>
             <Header style={headerStyle}>IACC GESTION</Header>
             <Content style={contentStyle}>
-              <div className="cardre">
-                <Card
-                  title="AUTOMOBILE"
-                  style={{
-                    width: 350,
-                    textAlign: "center",
-                    background: "#4D8076",
-                    color: "white",
-                  }}>
-                  <h2>100clients</h2>
-                </Card>
-                <Card
-                  title="SANTE"
-                  style={{
-                    width: 350,
-                    textAlign: "center",
-                    background: "#4D8076",
-                    color: "white",
-                  }}>
-                  <h2>100Clients</h2>
-                </Card>
-              </div>
+              <h2>Créer une nouvelle assurance</h2>
+              <Form className="formContent" onSubmit={handleSubmit}>
+                <Form.Group controlId="nom">
+                  <Form.Label>Nom</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="nom"
+                    value={formData.nom}
+                    onChange={handleFormChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="prenom">
+                  <Form.Label>Prénom</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="prenom"
+                    value={formData.prenom}
+                    onChange={handleFormChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="addresse">
+                  <Form.Label>Addresse</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="addresse"
+                    value={formData.addresse}
+                    onChange={handleFormChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleFormChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="telephone">
+                  <Form.Label>Telephone</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="telephone"
+                    value={formData.telephone}
+                    onChange={handleFormChange}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="periode">
+                  <Form.Label>periode</Form.Label>
+                  <Form.Select
+                    className="custom-select"
+                    name="periode"
+                    onChange={handleFormChange}
+                    value={formData.periode}>
+                    <option>periode</option>
+                    <option value="Trimestrielle">Trimestrielle</option>
+                    <option value="Mensuelle">Mensuelle</option>
+
+                  </Form.Select>
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                  Enregistrer
+                </Button>
+              </Form>
             </Content>
           </Layout>
         </Layout>
@@ -103,3 +194,6 @@ const Nouvelle = () => {
   );
 };
 export default Nouvelle;
+
+
+

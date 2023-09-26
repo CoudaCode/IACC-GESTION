@@ -1,4 +1,8 @@
 import React from "react";
+import { useRef,useState } from "react";
+import { CSSTransition } from "react-transition-group";
+import { Form, Button } from "react-bootstrap";
+
 import "./../styles/Renouvellement.css";
 import {
   RedoOutlined,
@@ -35,7 +39,55 @@ const Renouvellement = () => {
     color: "#fff",
     backgroundColor: "#3ba0e9",
   };
+  const nodeRef = useRef(null);
+  const [formDataPart1, setFormDataPart1] = useState({
+    nom: "",
+    prenom: "",
+    email: "",
+  });
 
+  const [formDataPart2, setFormDataPart2] = useState({
+    adresse: "",
+    telephone: "",
+    periode: "",
+  });
+
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    if (currentStep === 1) {
+      setFormDataPart1({ ...formDataPart1, [name]: value });
+    } else {
+      setFormDataPart2({ ...formDataPart2, [name]: value });
+    }
+  };
+
+  const handleSubmitPart1 = (e) => {
+    e.preventDefault();
+    setCurrentStep(2);
+  };
+
+  const handleSubmitPart2 = (e) => {
+    e.preventDefault();
+    // Envoyez les données du formulaire à votre backend ou effectuez d'autres actions nécessaires
+    console.log("Données du formulaire soumises :", {
+      ...formDataPart1,
+      ...formDataPart2,
+    });
+    // Réinitialisez les formulaires après la soumission
+    setFormDataPart1({
+      nom: "",
+      prenom: "",
+      email: "",
+    });
+    setFormDataPart2({
+      adresse: "",
+      telephone: "",
+      periode: "",
+    });
+    setCurrentStep(1);
+  };
   return (
     <>
       <div className="Renouvellement">
@@ -73,27 +125,55 @@ const Renouvellement = () => {
           <Layout>
             <Header style={headerStyle}>IACC GESTION</Header>
             <Content style={contentStyle}>
-              <div className="cardre">
-                <Card
-                  title="AUTOMOBILE"
-                  style={{
-                    width: 350,
-                    textAlign: "center",
-                    background: "#4D8076",
-                    color: "white",
-                  }}>
-                  <h2>100clients</h2>
-                </Card>
-                <Card
-                  title="SANTE"
-                  style={{
-                    width: 350,
-                    textAlign: "center",
-                    background: "#4D8076",
-                    color: "white",
-                  }}>
-                  <h2>100Clients</h2>
-                </Card>
+              <h2>Mon Formulaire</h2>
+              <div className="form-container">
+                <CSSTransition
+                  in={currentStep === 1}
+                  timeout={300}
+                  classNames="form"
+                  nodeRef={nodeRef}
+                  unmountOnExit>
+                  <Form onSubmit={handleSubmitPart1}>
+                    <Form.Group controlId="nom">
+                      <Form.Label>Nom</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="nom"
+                        value={formDataPart1.nom}
+                        onChange={handleFormChange}
+                        required
+                      />
+                    </Form.Group>
+                    {/* Ajoutez d'autres champs du formulaire ici */}
+                    <Button variant="primary" type="submit">
+                      Étape suivante
+                    </Button>
+                  </Form>
+                </CSSTransition>
+
+                <CSSTransition
+                  in={currentStep === 2}
+                  timeout={300}
+                  classNames="form"
+                  nodeRef={nodeRef}
+                  unmountOnExit>
+                  <Form onSubmit={handleSubmitPart2}>
+                    <Form.Group controlId="adresse">
+                      <Form.Label>Adresse</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="adresse"
+                        value={formDataPart2.adresse}
+                        onChange={handleFormChange}
+                        required
+                      />
+                    </Form.Group>
+                    {/* Ajoutez d'autres champs du formulaire ici */}
+                    <Button variant="primary" type="submit">
+                      Soumettre
+                    </Button>
+                  </Form>
+                </CSSTransition>
               </div>
             </Content>
           </Layout>

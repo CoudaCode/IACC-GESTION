@@ -8,11 +8,15 @@ import {
   ArrowLeftOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
-import { Layout, Card, theme, Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Layout, Card, Table, Menu } from "antd";
+import { Link,useNavigate } from "react-router-dom";
 const Suivi = () => {
   const { Header, Sider, Content } = Layout;
 
+  const navigate = useNavigate()
+ const naviguateLink = ({keys}) =>{
+        navigate(keys)
+ }
   const headerStyle = {
     textAlign: "center",
     color: "#fff",
@@ -35,7 +39,7 @@ const Suivi = () => {
     color: "#fff",
     backgroundColor: "#3ba0e9",
   };
-
+  console.log(Table);
   return (
     <>
       <div className="Suivi">
@@ -49,7 +53,7 @@ const Suivi = () => {
                 height="100"
               />
             </div>
-            <Menu mode="inline" defaultSelectedKeys={["5"]}>
+            {/* <Menu mode="inline" defaultSelectedKeys={["5"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 <Link to="/">Dashboard</Link>
               </Menu.Item>
@@ -68,7 +72,51 @@ const Suivi = () => {
               <Menu.Item key="6" icon={<ArrowLeftOutlined />}>
                 <Link to="/login">Deconnexion</Link>
               </Menu.Item>
-            </Menu>
+            </Menu> */}
+
+            <Menu
+              mode="inline"
+              onClick={({key})=> navigate(key)}
+              defaultSelectedKeys={["5"]}
+              items={[
+                {
+                  key: "1",
+                  icon: <DashboardOutlined />,
+                  label: "Dashboard",
+                  link: "/",
+                 },
+                {
+                  key: "2",
+                  icon: <UserAddOutlined />,
+                  label: "Nouvelle Affaire",
+                  link: "/nouvelle-affaire",
+                },
+                {
+                  key: "3",
+                  icon: <RedoOutlined />,
+                  label: "Renouvellement",
+                  link: "/renouvellement",
+                },
+                {
+                  key: "4",
+                  icon: <UnorderedListOutlined />,
+                  label: "Bilan",
+                  link: "/bilan",
+                },
+                {
+                  key: "5",
+                  icon: <UploadOutlined />,
+                  label: "Suivi",
+                  link: "/suivi",
+                },
+                {
+                  key: "6",
+                  icon: <ArrowLeftOutlined />,
+                  label: "Deconnexion",
+                  link: "/login",
+                },
+              ]}
+            />
           </Sider>
           <Layout>
             <Header style={headerStyle}>IACC GESTION</Header>
@@ -96,9 +144,7 @@ const Suivi = () => {
                 </Card>
               </div>
 
-              <div className="container">
-                  
-              </div>
+              <div className="container"></div>
             </Content>
           </Layout>
         </Layout>
