@@ -3,12 +3,11 @@
     align-items: center;
     justify-content: center;
     height: 90vh;
-    background-color: #1A2639;
 }
 
 .Inscription .inscription{
     width: 80%;
-    height: 100%;
+    height: 60%;
     background-color: #4D8076;
     border-radius: 10px;
     display: flex;
@@ -18,7 +17,7 @@
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     height: 100%;
-    background-color: #4D8076;
+    background-color: #0f1f1c;
 }
 .Inscription .inscription .cadre2{
     width: 50%;

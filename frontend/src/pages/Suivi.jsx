@@ -9,14 +9,15 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { Layout, Card, Table, Menu } from "antd";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Suivi = () => {
+  document.title = "Suivi";
   const { Header, Sider, Content } = Layout;
 
-  const navigate = useNavigate()
- const naviguateLink = ({keys}) =>{
-        navigate(keys)
- }
+  const navigate = useNavigate();
+  const naviguateLink = ({ keys }) => {
+    navigate(keys);
+  };
   const headerStyle = {
     textAlign: "center",
     color: "#fff",
@@ -76,7 +77,7 @@ const Suivi = () => {
 
             <Menu
               mode="inline"
-              onClick={({key})=> navigate(key)}
+              onClick={({ key }) => navigate(key)}
               defaultSelectedKeys={["5"]}
               items={[
                 {
@@ -84,7 +85,7 @@ const Suivi = () => {
                   icon: <DashboardOutlined />,
                   label: "Dashboard",
                   link: "/",
-                 },
+                },
                 {
                   key: "2",
                   icon: <UserAddOutlined />,
@@ -129,7 +130,8 @@ const Suivi = () => {
                     textAlign: "center",
                     background: "#4D8076",
                     color: "white",
-                  }}>
+                  }}
+                >
                   <h2>100clients</h2>
                 </Card>
                 <Card
@@ -139,7 +141,8 @@ const Suivi = () => {
                     textAlign: "center",
                     background: "#4D8076",
                     color: "white",
-                  }}>
+                  }}
+                >
                   <h2>100Clients</h2>
                 </Card>
               </div>

@@ -11,6 +11,7 @@ import {
 import { Layout, Card, theme, Menu } from "antd";
 import { Link } from "react-router-dom";
 const Bilan = () => {
+  document.title = "Bilan";
   const { Header, Sider, Content } = Layout;
 
   const headerStyle = {

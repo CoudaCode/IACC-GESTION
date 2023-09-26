@@ -6,7 +6,7 @@
   }
   
   .Suivi .ant-layout-has-sider {
-    height: auto;
+    height: 100%;
   }
   .Suivi .ant-layout-sider-children {
     background: #1a2639;

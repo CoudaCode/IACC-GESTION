@@ -13,6 +13,7 @@ import { Layout, Card, theme, Menu } from "antd";
 import { Link } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 const Nouvelle = () => {
+  document.title = "Nouvelle-affaire";
   const { Header, Sider, Content } = Layout;
 
   const headerStyle = {
@@ -118,7 +119,7 @@ const Nouvelle = () => {
             <Header style={headerStyle}>IACC GESTION</Header>
             <Content style={contentStyle}>
               <h2>Créer une nouvelle assurance</h2>
-              <Form className="formContent" onSubmit={handleSubmit}>
+              <Form className="form-container" onSubmit={handleSubmit}>
                 <Form.Group controlId="nom">
                   <Form.Label>Nom</Form.Label>
                   <Form.Control
@@ -175,11 +176,11 @@ const Nouvelle = () => {
                     className="custom-select"
                     name="periode"
                     onChange={handleFormChange}
-                    value={formData.periode}>
+                    value={formData.periode}
+                  >
                     <option>periode</option>
                     <option value="Trimestrielle">Trimestrielle</option>
                     <option value="Mensuelle">Mensuelle</option>
-
                   </Form.Select>
                 </Form.Group>
                 <Button variant="primary" type="submit">
@@ -194,6 +195,3 @@ const Nouvelle = () => {
   );
 };
 export default Nouvelle;
-
-
-

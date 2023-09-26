@@ -1,6 +1,9 @@
 import React from "react";
 import "./../styles/Inscription.css";
-export default function Inscription() {
+export default function Inscription() { 
+
+  document.title = "Inscription";
+
   return <div className="Inscription">
             <div className="inscription">
                 <div className="cadre1">

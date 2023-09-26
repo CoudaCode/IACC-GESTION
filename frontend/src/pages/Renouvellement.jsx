@@ -1,9 +1,17 @@
 import React from "react";
-import { useRef,useState } from "react";
-import { CSSTransition } from "react-transition-group";
-import { Form, Button } from "react-bootstrap";
-
+import { useRef, useState } from "react";
+// import { CSSTransition } from "react-transition-group";
+// import { Form, Button } from "react-bootstrap";
+// import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./../styles/Renouvellement.css";
+import { Link } from "react-router-dom";
+import Form1 from "./../components/Form1";
+import Form2 from "./../components/Form2";
+import ConfirmationModal from "./../components/ConfirmationModal";
+import "primereact/resources/themes/saga-blue/theme.css"
+import "primereact/resources/primereact.min.css"
+import {Form } from "react-bootstrap";
 import {
   RedoOutlined,
   UnorderedListOutlined,
@@ -13,8 +21,9 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { Layout, Card, theme, Menu } from "antd";
-import { Link } from "react-router-dom";
+
 const Renouvellement = () => {
+  document.title = "Renouvellement";
   const { Header, Sider, Content } = Layout;
 
   const headerStyle = {
@@ -39,55 +48,44 @@ const Renouvellement = () => {
     color: "#fff",
     backgroundColor: "#3ba0e9",
   };
-  const nodeRef = useRef(null);
-  const [formDataPart1, setFormDataPart1] = useState({
-    nom: "",
-    prenom: "",
-    email: "",
+
+  const [formData, setFormData] = useState({
+    field1: "",
+    field2: "",
+    // Ajoutez d'autres champs de formulaire
   });
 
-  const [formDataPart2, setFormDataPart2] = useState({
-    adresse: "",
-    telephone: "",
-    periode: "",
-  });
+  const [activeForm, setActiveForm] = useState(1);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
-  const [currentStep, setCurrentStep] = useState(1);
-
-  const handleFormChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    if (currentStep === 1) {
-      setFormDataPart1({ ...formDataPart1, [name]: value });
-    } else {
-      setFormDataPart2({ ...formDataPart2, [name]: value });
-    }
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmitPart1 = (e) => {
-    e.preventDefault();
-    setCurrentStep(2);
+  const handleNext = () => {
+    setActiveForm(2);
   };
 
-  const handleSubmitPart2 = (e) => {
-    e.preventDefault();
-    // Envoyez les données du formulaire à votre backend ou effectuez d'autres actions nécessaires
-    console.log("Données du formulaire soumises :", {
-      ...formDataPart1,
-      ...formDataPart2,
-    });
-    // Réinitialisez les formulaires après la soumission
-    setFormDataPart1({
-      nom: "",
-      prenom: "",
-      email: "",
-    });
-    setFormDataPart2({
-      adresse: "",
-      telephone: "",
-      periode: "",
-    });
-    setCurrentStep(1);
+  const handlePrevious = () => {
+    setActiveForm(1);
   };
+
+  const handleSubmit = () => {
+    // Affichez les données dans la console
+    console.log(formData);
+
+    // Réinitialisez le formulaire après soumission
+    setFormData({
+      field1: "",
+      field2: "",
+      // Réinitialisez les autres champs
+    });
+
+    // Fermez la modal de confirmation
+    setIsConfirmationModalOpen(false);
+  };
+
   return (
     <>
       <div className="Renouvellement">
@@ -126,54 +124,27 @@ const Renouvellement = () => {
             <Header style={headerStyle}>IACC GESTION</Header>
             <Content style={contentStyle}>
               <h2>Mon Formulaire</h2>
-              <div className="form-container">
-                <CSSTransition
-                  in={currentStep === 1}
-                  timeout={300}
-                  classNames="form"
-                  nodeRef={nodeRef}
-                  unmountOnExit>
-                  <Form onSubmit={handleSubmitPart1}>
-                    <Form.Group controlId="nom">
-                      <Form.Label>Nom</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="nom"
-                        value={formDataPart1.nom}
-                        onChange={handleFormChange}
-                        required
-                      />
-                    </Form.Group>
-                    {/* Ajoutez d'autres champs du formulaire ici */}
-                    <Button variant="primary" type="submit">
-                      Étape suivante
-                    </Button>
-                  </Form>
-                </CSSTransition>
+              <div className="formContent">
+                {activeForm === 1 ? (
+                  <Form1
+                    formData={formData}
+                    onChange={handleChange}
+                    onNext={handleNext}
+                  />
+                ) : (
+                  <Form2
+                    formData={formData}
+                    onChange={handleChange}
+                    onPrevious={handlePrevious}
+                    onSubmit={() => setIsConfirmationModalOpen(true)}
+                  />
+                )}
 
-                <CSSTransition
-                  in={currentStep === 2}
-                  timeout={300}
-                  classNames="form"
-                  nodeRef={nodeRef}
-                  unmountOnExit>
-                  <Form onSubmit={handleSubmitPart2}>
-                    <Form.Group controlId="adresse">
-                      <Form.Label>Adresse</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="adresse"
-                        value={formDataPart2.adresse}
-                        onChange={handleFormChange}
-                        required
-                      />
-                    </Form.Group>
-                    {/* Ajoutez d'autres champs du formulaire ici */}
-                    <Button variant="primary" type="submit">
-                      Soumettre
-                    </Button>
-                  </Form>
-                </CSSTransition>
+                <ConfirmationModal
+                  isVisible={isConfirmationModalOpen}
+                  onClose={() => setIsConfirmationModalOpen(false)}
+                  onConfirm={handleSubmit}
+                />
               </div>
             </Content>
           </Layout>

@@ -6,7 +6,7 @@
   }
   
   .Bilan .ant-layout-has-sider {
-    height: auto;
+    height: 100%;
   }
   .Bilan .ant-layout-sider-children {
     background: #1a2639;

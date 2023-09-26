@@ -12,12 +12,12 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/login" exact element={<Connexion />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/renouvellement" element={<Renouvellement />} />
         <Route path="/bilan" element={<Bilan />} />
         <Route path="/nouvelle-affaire" element={<Nouvelle />} />
         <Route path="/suivi" element={<Suivi />} />
-        <Route path="/login" element={<Connexion />} />
         <Route path="/inscription" element={<Inscription />} />
       </Routes>
     </>

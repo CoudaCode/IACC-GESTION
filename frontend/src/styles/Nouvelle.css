@@ -5,8 +5,8 @@
   background-color: var(--colorPrimary);
 }
 
-.Nouvelle .ant-layout{
-  height: 100%;
+.Nouvelle .ant-layout-has-sider{
+  height:100%;
 }
 .Nouvelle .ant-layout-sider-children {
   background: #1a2639;
@@ -35,14 +35,6 @@
   border-bottom: 1px solid #001529;
 }
 /* Nouvelle.css */
-
-.Nouvelle {
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
 .layout-content {
   background-color: #f3f3f3;
@@ -104,7 +96,7 @@
 
 .Nouvelle .btn-primary:hover {
   background-color: #0056b3;
-} 
+}
 
 
 /* MonFormulaire.css */

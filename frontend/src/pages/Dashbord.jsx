@@ -13,6 +13,7 @@ import {
 import { Layout, Card, theme, Menu } from "antd";
 import { Link,useNavigate } from "react-router-dom";
 const Dashboard = () => {
+  document.title = "Dasshboard";
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate()
   const headerStyle = {

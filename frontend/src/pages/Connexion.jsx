@@ -2,7 +2,10 @@ import React from "react";
 import "./../styles/Connexion.css";
 import { Link } from "react-router-dom";
 export default function Connexion() {
+
+  document.title = "Connexion";
   return (
+    
     <div className="Connexion">
       <div className="connexion">
         <div className="cadre1"></div>
