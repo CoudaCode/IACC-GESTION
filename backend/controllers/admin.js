@@ -197,7 +197,7 @@ class AdminController {
         return res.status(200).json({
           status: true,
           admin,
-          token: generateToken(superAdm.toObject())
+          token: generateToken(admin.toObject())
         });
       }
       res.status(401).json({ status: false, message: "identifiant invalide" });
