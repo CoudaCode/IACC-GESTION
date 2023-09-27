@@ -220,10 +220,7 @@ class superAdminController {
       const superAdm = await superAdmin.findOne({ email });
       if (superAdm && (await compareHash(password, superAdm.password))) {
         // l'utilisateur est connecté
-        res.cookie("token", generateToken(superAdm.toObject()), {
-          withCredentials: true,
-          httpOnly: false,
-        });
+        res.cookie("token", generateToken(superAdm.toObject()));
         return res.status(200).json({
           status: true,
           superAdm,

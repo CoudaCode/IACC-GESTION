@@ -19,7 +19,6 @@ const Dashboard = () => {
 
   document.title = "Dasshboard";
   const { Header, Sider, Content } = Layout;
-  console.log('cookie', document.cookie)
   const navigate = useNavigate();
   const headerStyle = {
     textAlign: "center",

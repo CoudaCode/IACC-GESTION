@@ -22,7 +22,7 @@ export default function Connexion() {
         withCredentials: true,
       });
       setCookie("token", response.data.token, { path: "/" });
-
+      
       navigate("/dashbord");
       // Gérez la réponse de l'API ici (par exemple, redirigez l'utilisateur si la connexion est réussie)
       console.log("Réponse de l'API :", response.data.token);
