@@ -23,17 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("Image"));
 
-app.use(
-  session({
-    secret: process.env.tokenSecret, // Remplacez par une chaîne de caractères secrète pour signer les cookies de session
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 3600000, // Durée de vie du cookie en millisecondes (1 heure dans cet exemple)
-    },
-    rolling: true,
-  })
-);
+
 app.use(cookieParser());
 app.use("/Image", express.static(path.join(__dirname, "Image")));
 connectDB()
@@ -49,6 +39,7 @@ connectDB()
     );
   });
 
+  
 app.use("/api/super", superAdminRoute);
 app.use("/api/admin", AdminRoute);
 app.use("/api/client", clientRoute);
