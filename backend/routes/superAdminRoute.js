@@ -13,5 +13,5 @@ router.delete("/:id", withUser, superAdminController.deleteSuperAdmin);
 
 //SuperAdmin -->  admin
 router.post("/admin", withUser, AdminController.createAdmin);
-router.get('/admin', withUser, AdminController.getAllAdmin)
+
 export default router;
