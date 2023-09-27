@@ -220,11 +220,14 @@ class superAdminController {
       const superAdm = await superAdmin.findOne({ email });
       if (superAdm && (await compareHash(password, superAdm.password))) {
         // l'utilisateur est connecté
-        res.cookie("token", generateToken(superAdm.toObject()));
+        res.cookie("token", generateToken(superAdm.toObject()), {
+          withCredentials: true,
+          httpOnly: false,
+        });
         return res.status(200).json({
           status: true,
           superAdm,
-          token: generateToken(superAdm.toObject())
+          token: generateToken(superAdm.toObject()),
         });
       }
       res.status(401).json({ status: false, message: "identifiant invalide" });
