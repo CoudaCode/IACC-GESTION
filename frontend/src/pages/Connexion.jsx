@@ -14,7 +14,8 @@ export default function Connexion() {
   console.log('url', url)
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(`${url}login`, data, {
+      console.log(data)
+      const response = await axios.post(`${url}api/super/login`, data, {
         withCredentials: true,
       });
 
@@ -31,7 +32,7 @@ export default function Connexion() {
       <div className="connexion">
         <div className="cadre1"></div>
         <div className="cadre2">
-          <div className="form" onSubmit={handleSubmit(onSubmit)}>
+          <form className="form" onSubmit={handleSubmit(onSubmit)}>
             <h2>Connexion</h2>
             <div className="input">
               <div className="inputBox">
@@ -39,6 +40,7 @@ export default function Connexion() {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   placeholder="couda.dm@gmail.com"
                   {...register('email', { required: 'MEmail requis' })}
                 />
@@ -49,6 +51,7 @@ export default function Connexion() {
                 <input
                   type="password"
                   id="Password"
+                  name="password"
                   placeholder="............"
                   // required
                   {...register('password', { required: 'Mot de passe requis' })}
@@ -66,7 +69,7 @@ export default function Connexion() {
             <p className="forget">
               J'ai pas de compte ? <Link to={"/inscription"}>Inscription</Link>
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>
