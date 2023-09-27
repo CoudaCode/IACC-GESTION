@@ -11,7 +11,6 @@ import AdminRoute from "./routes/adminRoute.js";
 import clientRoute from "./routes/clientRoute.js";
 import superAdminRoute from "./routes/superAdminRoute.js";
 import automobile from "./routes/automobile.js";
-import bilan from "./routes/bilan.js";
 const app = express();
 config({
   path: path.join(process.cwd(), ".env.local"),
