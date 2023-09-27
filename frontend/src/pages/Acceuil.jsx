@@ -1,7 +1,11 @@
 import React from 'react'
-
+import {Link} from "react-router-dom"
 export default function Acceuil() {
   return (
-    <div>Acceuil</div>
+    <>
+          <h1>Acceuil</h1>
+          <Link to="/login"> Connexion</Link>
+    </>
+    
   )
 }

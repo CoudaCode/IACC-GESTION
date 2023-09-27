@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 import Form1 from "./../components/Form1";
 import Form2 from "./../components/Form2";
 import ConfirmationModal from "./../components/ConfirmationModal";
-import "primereact/resources/themes/saga-blue/theme.css"
-import "primereact/resources/primereact.min.css"
-import {Form } from "react-bootstrap";
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import { Form } from "react-bootstrap";
 import {
   RedoOutlined,
   UnorderedListOutlined,
@@ -101,7 +101,7 @@ const Renouvellement = () => {
             </div>
             <Menu mode="inline" defaultSelectedKeys={["3"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
-                <Link to="/">Dashboard</Link>
+                <Link to="/dashbord">Dashboard</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<UserAddOutlined />}>
                 <Link to="/nouvelle-affaire">Nouvelle Affaire</Link>

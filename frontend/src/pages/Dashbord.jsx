@@ -11,11 +11,11 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import { Layout, Card, theme, Menu } from "antd";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Dashboard = () => {
   document.title = "Dasshboard";
   const { Header, Sider, Content } = Layout;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const headerStyle = {
     textAlign: "center",
     color: "#fff",
@@ -54,7 +54,7 @@ const Dashboard = () => {
             </div>
             {/* <Menu mode="inline" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
-                <Link to="/">Dashboard</Link>
+                <Link to="/dashbord">Dashboard</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<UserAddOutlined />}>
                 <Link to="/nouvelle-affaire">Nouvelle Affaire</Link>
@@ -72,17 +72,17 @@ const Dashboard = () => {
                 <Link to="/login">Deconnexion</Link>
               </Menu.Item>
             </Menu> */}
-             <Menu
+            <Menu
               mode="inline"
-              onClick={({key})=> navigate(key)}
-              defaultSelectedKeys={["/"]}
+              onClick={({ key }) => navigate(key)}
+              defaultSelectedKeys={["/dashboard"]}
               items={[
                 {
                   key: "/",
                   icon: <DashboardOutlined />,
                   label: "Dashboard",
-                  link: "/",
-                 },
+                  link: "/dashboard",
+                },
                 {
                   key: "nouvelle-affaire",
                   icon: <UserAddOutlined />,

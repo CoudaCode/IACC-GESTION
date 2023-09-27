@@ -96,7 +96,7 @@ const Nouvelle = () => {
             </div>
             <Menu mode="inline" defaultSelectedKeys={["2"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
-                <Link to="/">Dashboard</Link>
+                <Link to="/dashbord">Dashboard</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<UserAddOutlined />}>
                 <Link to="/nouvelle-affaire">Nouvelle Affaire</Link>
@@ -176,8 +176,7 @@ const Nouvelle = () => {
                     className="custom-select"
                     name="periode"
                     onChange={handleFormChange}
-                    value={formData.periode}
-                  >
+                    value={formData.periode}>
                     <option>periode</option>
                     <option value="Trimestrielle">Trimestrielle</option>
                     <option value="Mensuelle">Mensuelle</option>

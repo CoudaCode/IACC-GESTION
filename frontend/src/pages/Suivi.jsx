@@ -56,7 +56,7 @@ const Suivi = () => {
             </div>
             {/* <Menu mode="inline" defaultSelectedKeys={["5"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
-                <Link to="/">Dashboard</Link>
+                <Link to="/dashbord">Dashboard</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<UserAddOutlined />}>
                 <Link to="/nouvelle-affaire">Nouvelle Affaire</Link>
@@ -130,8 +130,7 @@ const Suivi = () => {
                     textAlign: "center",
                     background: "#4D8076",
                     color: "white",
-                  }}
-                >
+                  }}>
                   <h2>100clients</h2>
                 </Card>
                 <Card
@@ -141,8 +140,7 @@ const Suivi = () => {
                     textAlign: "center",
                     background: "#4D8076",
                     color: "white",
-                  }}
-                >
+                  }}>
                   <h2>100Clients</h2>
                 </Card>
               </div>
