@@ -48,8 +48,8 @@ const Dashboard = () => {
   const onSubmit = async (data) => {
     try {
       console.log();
-      const response = await axios.get(`${url}api/super/admin`,{
-        Headers: {
+      const response = await axios.get(`${url}api/admin`,{
+        headers: {
           Authorization: `Bearer ${cookies.token}`,
         }
       });
