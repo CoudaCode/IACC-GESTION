@@ -48,5 +48,4 @@ connectDB()
 app.use("/api/super", superAdminRoute);
 app.use("/api/admin", AdminRoute);
 app.use("/api/client", clientRoute);
-app.use("/api/bilan", bilan);
 app.use("/api/auto", automobile);
