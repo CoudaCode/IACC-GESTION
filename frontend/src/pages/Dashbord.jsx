@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./../styles/Dashbord.css";
 import { useCookies } from "react-cookie";
+import { url } from "../utils/url.js";
+import axios from "axios"
 import {
   RedoOutlined,
   UnorderedListOutlined,
@@ -13,7 +15,6 @@ import {
 import { Layout, Card, theme, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 const Dashboard = () => {
-
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
   const headerStyle = {
@@ -43,8 +44,30 @@ const Dashboard = () => {
   console.log(cookies.token);
 
   document.title = "Dasshboard";
+  const [userData, setUserData] = useState(null);
+  const onSubmit = async (data) => {
+    try {
+      console.log();
+      const response = await axios.get(`${url}api/admin`,{
+        Headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        }
+      });
+    
+      // Gérez la réponse de l'API ici (par exemple, redirigez l'utilisateur si la connexion est réussie)
+      console.log("Réponse de l'API :", response.data);
+    } catch (error) {
+      // Gérez les erreurs ici (par exemple, affichez un message d'erreur)
+      console.error("Erreur lors de la connexion :", error);
+    }
+  };
+  useEffect(() => {
+    // Faites une requête HTTP vers votre route Express
+    console.log(url)
+    onSubmit();
+    
+  }, []);
 
-  
   return (
     <>
       <div className="Dashbord">
