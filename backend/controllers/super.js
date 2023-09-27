@@ -224,6 +224,7 @@ class superAdminController {
         return res.status(200).json({
           status: true,
           superAdm,
+          token: generateToken(superAdm.toObject())
         });
       }
       res.status(401).json({ status: false, message: "identifiant invalide" });

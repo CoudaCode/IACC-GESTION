@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import "./../styles/Dashbord.css";
+import { useCookies } from "react-cookie";
 import {
   RedoOutlined,
   UnorderedListOutlined,
@@ -13,8 +14,12 @@ import {
 import { Layout, Card, theme, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 const Dashboard = () => {
+  const [cookies, removeCookie] = useCookies(["token"]);
+  console.log(cookies.token)
+
   document.title = "Dasshboard";
   const { Header, Sider, Content } = Layout;
+  console.log('cookie', document.cookie)
   const navigate = useNavigate();
   const headerStyle = {
     textAlign: "center",

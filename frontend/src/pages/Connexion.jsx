@@ -1,26 +1,31 @@
 import React from "react";
 import "./../styles/Connexion.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { url } from "../utils/url.js";
+import { useCookies } from "react-cookie";
 export default function Connexion() {
+  const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["token"]);
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
-  console.log('url', url)
+  console.log("url", url);
   const onSubmit = async (data) => {
     try {
-      console.log(data)
+      console.log(data);
       const response = await axios.post(`${url}api/super/login`, data, {
         withCredentials: true,
       });
+      setCookie("token", response.data.token, { path: "/" });
 
+      navigate("/dashbord");
       // Gérez la réponse de l'API ici (par exemple, redirigez l'utilisateur si la connexion est réussie)
-      console.log("Réponse de l'API :", response.data);
+      console.log("Réponse de l'API :", response.data.token);
     } catch (error) {
       // Gérez les erreurs ici (par exemple, affichez un message d'erreur)
       console.error("Erreur lors de la connexion :", error);
@@ -42,7 +47,7 @@ export default function Connexion() {
                   id="email"
                   name="email"
                   placeholder="couda.dm@gmail.com"
-                  {...register('email', { required: 'MEmail requis' })}
+                  {...register("email", { required: "MEmail requis" })}
                 />
                 {errors.email && <p>{errors.email.message}</p>}
               </div>
@@ -54,8 +59,7 @@ export default function Connexion() {
                   name="password"
                   placeholder="............"
                   // required
-                  {...register('password', { required: 'Mot de passe requis' })}
-
+                  {...register("password", { required: "Mot de passe requis" })}
                 />
                 {errors.email && <p>{errors.email.message}</p>}
               </div>
