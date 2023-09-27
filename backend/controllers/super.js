@@ -108,7 +108,7 @@ class superAdminController {
         return res
           .status(401)
           .json({ status: false, message: "action non authorisé" });
-      }
+      } 
       const superAdm = await superAdmin.findById(id);
       // console.log("superAdm", superAdm);
       if (!superAdm) {

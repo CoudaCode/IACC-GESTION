@@ -13,11 +13,6 @@ import {
 import { Layout, Card, theme, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 const Dashboard = () => {
-  const [cookies, removeCookie] = useCookies(["token"]);
-  console.log(cookies.token);
-
-
-  document.title = "Dasshboard";
 
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
@@ -44,6 +39,12 @@ const Dashboard = () => {
     backgroundColor: "#3ba0e9",
   };
 
+  const [cookies, removeCookie] = useCookies(["token"]);
+  console.log(cookies.token);
+
+  document.title = "Dasshboard";
+
+  
   return (
     <>
       <div className="Dashbord">
