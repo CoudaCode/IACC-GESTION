@@ -1,6 +1,11 @@
 import { Schema, model } from "mongoose";
 
 const superAdminSchema = new Schema({
+  username:{
+    type:String,
+    required:true,
+    unique: true
+  },
   name: {
     type: String,
     required: true,
