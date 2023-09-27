@@ -45,7 +45,7 @@ const Dashboard = () => {
 
   document.title = "Dasshboard";
   const [userData, setUserData] = useState(null);
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       console.log();
       const response = await axios.get(`${url}api/admin`,{

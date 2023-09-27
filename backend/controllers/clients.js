@@ -9,14 +9,18 @@ class clientController {
 
   static async createClient(req, res) {
     try {
+  
+      const { immatriculation,...body } = req.body;
       const admin = req.admin;
-      if (admin.role !== "admin") {
+      if (admin.role !== "admin"){
         return res.status(403).json({
           status: false,
           message: "vous n'etes pas autorisé à effectuer cette action",
         });
       } else {
-        const client = await Client.create(req.body);
+        const client = await Client.create({
+          ...req.body,
+        });
         res.status(201).json({
           status: true,
           message: { ...client.toObject() },
@@ -35,7 +39,7 @@ class clientController {
       const { id } = req.params;
       const admin = req.admin;
       const client = await Client.findById(id);
-      if (admin.role !== "admin") {
+      if (admin.role == "admin") {
         return res.status(403).json({
           status: false,
           message: "vous n'etes pas autorisé à effectuer cette action",
@@ -66,7 +70,7 @@ class clientController {
       const admin = req.admin;
       const ClienCreate = req.session.ClientId
       console.log("client create", ClienCreate);
-      if (admin.role !== "admin") {
+      if (admin.role == "admin") {
         return res.status(403).json({
           status: false,
           message: "vous n'etes pas autorisé à effectuer cette action",
@@ -98,22 +102,20 @@ class clientController {
       const { id } = req.params;
       const admin = req.admin;
       console.log("admin", admin);
-      const client = await Client.deleteOne(id);
-      if (admin.role !== "admin") {
-        return res.status(403).json({
-          status: false,
-          message: "vous n'etes pas autorisé à effectuer cette action",
-        });
-      } else {
-        if (client) {
-          return res.status(200).json({
-            status: true,
-            message: "succes",
-          });
-        }
+      const adminExist = await Client.findById(id);
 
-        res.status(404).json({ status: false, message: "pas de liste client" });
+      if(!adminExist) return res.status(404).json({status: false, message: "admin n'existe pas"})
+     
+      const client = await Client.deleteOne(id);
+      
+      if(!client){
+        return res.status(404).json({ status: false, message: "pas de liste client" });
       }
+      return res.status(200).json({
+        status: true,
+        message: "succes",
+      });
+
     } catch (e) {
       console.log("erreur");
       res
@@ -132,22 +134,14 @@ class clientController {
       const { id } = req.params;
       const admin = req.admin;
       const client = await Client.findById(id);
-      if (admin.role !== "admin") {
-        return res.status(403).json({
-          status: false,
-          message: "vous n'etes pas autorisé à effectuer cette action",
-        });
-      } else {
-        if (client) {
-          const updateClient = await Client.updateOne({ _id: id }, { ...body });
-          return res.status(200).json({
-            status: true,
-            message: { ...updateClient.toObject() },
-          });
+        if (!client) {
+          return res.status(404).json({ status: false, message: "pas de liste client" });
         }
-
-        res.status(404).json({ status: false, message: "pas de liste client" });
-      }
+        const updateClient = await Client.updateOne({ _id: id }, { ...body });
+        return res.status(200).json({
+          status: true,
+          message: { ...updateClient.toObject() },
+        });
     } catch (e) {
       res
         .status(500)
@@ -160,37 +154,37 @@ class clientController {
    * @param {express.Response} res
    */
 
-  static async getAutomobile(req, res) {
-    try {
-      const admin = await Client.find({ categorie: "Automobile" });
-      if (!admin) {
-        return res
-          .status(403)
-          .json({ status: false, message: "pas de liste client" });
-      }
-      res.status(200).json({ status: true, message: { ...admin.toObject() } });
-    } catch (e) {
-      res.status(500).json({ status: false, message: e.message });
-    }
-  }
+  // static async getAutomobile(req, res) {
+  //   try {
+  //     const admin = await Client.find({ categorie: "Automobile" });
+  //     if (!admin) {
+  //       return res
+  //         .status(403)
+  //         .json({ status: false, message: "pas de liste client" });
+  //     }
+  //     res.status(200).json({ status: true, message: { ...admin.toObject() } });
+  //   } catch (e) {
+  //     res.status(500).json({ status: false, message: e.message });
+  //   }
+  // }
   /**
    * @param {express.Request} req
    * @param {express.Response} res
    */
 
-  static async getSante(req, res) {
-    try {
-      const admin = await Client.find({ categorie: "Sante" });
-      if (!admin) {
-        return res
-          .status(403)
-          .json({ status: false, message: "pas de liste client" });
-      }
-      res.status(200).json({ status: true, message: { ...admin.toObject() } });
-    } catch (e) {
-      res.status(500).json({ status: false, message: e.message });
-    }
-  }
+  // static async getSante(req, res) {
+  //   try {
+  //     const admin = await Client.find({ categorie: "Sante" });
+  //     if (!admin) {
+  //       return res
+  //         .status(403)
+  //         .json({ status: false, message: "pas de liste client" });
+  //     }
+  //     res.status(200).json({ status: true, message: { ...admin.toObject() } });
+  //   } catch (e) {
+  //     res.status(500).json({ status: false, message: e.message });
+  //   }
+  // }
 }
 
 export default clientController;

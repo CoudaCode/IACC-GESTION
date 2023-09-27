@@ -5,6 +5,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { url } from "../utils/url.js";
 import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 export default function Connexion() {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["token"]);
@@ -21,8 +22,9 @@ export default function Connexion() {
       const response = await axios.post(`${url}api/super/login`, data, {
         withCredentials: true,
       });
-      setCookie("token", response.data.token, { path: "/" });
       
+      setCookie("token", response.data.token, { path: "/" });
+      Cookies.set('token', response.data.token)
       navigate("/dashbord");
       // Gérez la réponse de l'API ici (par exemple, redirigez l'utilisateur si la connexion est réussie)
       console.log("Réponse de l'API :", response.data.token);

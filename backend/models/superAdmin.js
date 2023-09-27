@@ -1,10 +1,10 @@
 import { Schema, model } from "mongoose";
 
 const superAdminSchema = new Schema({
-  username:{
-    type:String,
-    required:true,
-    unique: true
+  username: {
+    type: String,
+    required: true,
+    unique: true,
   },
   name: {
     type: String,
@@ -12,7 +12,7 @@ const superAdminSchema = new Schema({
   },
   email: {
     type: String,
-    unique  : true,
+    unique: true,
     required: true,
   },
   password: {
@@ -21,7 +21,8 @@ const superAdminSchema = new Schema({
   },
   role: {
     type: String,
-    default : "superAdmin",
-}})
+    default: "superAdmin",
+  },
+});
 
 export default model("superAdmin", superAdminSchema);

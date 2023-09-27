@@ -14,7 +14,6 @@ const automobileSchema = new Schema({
     type: String,
     required: true,
   },
-  
   usage: {
     type: String,
     required: true,

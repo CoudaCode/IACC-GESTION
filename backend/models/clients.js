@@ -22,40 +22,63 @@ const clientSchema = new Schema({
     type: String,
     required: true,
   },
-  categorie: {
+  periode: {
     type: String,
     required: true,
-    enum: ["Automobile", "Sante"],
+    enum: ["Mensuelle", "Trimestrielle", "Semestrielle", "Annuelle"],
   },
-  assurance: {
-    type: Schema.Types.ObjectId,
-    refPath: "categorie",
+  immatriculation: {
+    type: String,
+    required: true,
   },
-  // periode: {
-  //   type: String,
-  //   required: true,
-  //   enum: ["Mensuelle", "Trimestrielle", "Semestrielle", "Annuelle"],
-  // },
-  // dateEffet: {
-  //   type: Date,
-  //   required: true,
-  // },
-  // dateEcheance: {
-  //   type: Date,
-  //   required: true,
-  // },
-  // montant: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // commission: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // MtnCompagnie: {
-  //   type: Number,
-  //   required: true,
-  // },
+  marque: {
+    type: String,
+    required: true,
+  },
+  usage: {
+    type: String,
+    required: true,
+  },
+  puissance: {
+    type: String,
+    required: true,
+  },
+  energie: {
+    type: String,
+    required: true,
+  },
+  valeurNeuve: {
+    type: Number,
+    required: true,
+  },
+  valeurVenale: {
+    type: Number,
+    required: true,
+  },
+  dateCirculation: {
+    type: Date,
+    required: true,
+  },
+  dateEffet: {
+    type: Date,
+    required: true,
+  },
+  dateEcheance: {
+    type: Date,
+    required: true,
+  },
+  montant: {
+    type: Number,
+    required: true,
+  },
+  commission: {
+    type: Number,
+    required: true,
+  },
+  MtnCompagnie: {
+    type: Number,
+    required: true,
+  },
 });
 
 export default model("Client", clientSchema);
