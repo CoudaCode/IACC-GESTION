@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./../styles/Dashbord.css";
-import { useCookies } from "react-cookie";
 import { url } from "../utils/url.js";
 import Cookies from "js-cookie";
 import axios from "axios"
