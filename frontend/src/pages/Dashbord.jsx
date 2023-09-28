@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./../styles/Dashbord.css";
 import { useCookies } from "react-cookie";
 import { url } from "../utils/url.js";
+import Cookies from "js-cookie";
 import axios from "axios"
 import {
   RedoOutlined,
@@ -47,10 +48,12 @@ const Dashboard = () => {
   const [userData, setUserData] = useState(null);
   const onSubmit = async () => {
     try {
+      const getCookie = Cookies.get('token')
+      console.log("getCookie", getCookie)
       console.log();
       const response = await axios.get(`${url}api/admin`,{
         headers: {
-          Authorization: `Bearer ${cookies.token}`,
+          Authorization: `Bearer ${getCookie}`,
         }
       });
     
