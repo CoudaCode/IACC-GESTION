@@ -20,8 +20,7 @@ export default function Connexion() {
     try {
       console.log(data);
       const response = await axios.post(`${url}api/super/login`, data);
-      setCookie("token", response.data.token, { path: "/" });
-      Cookies.set('token', response.data.token)
+      Cookies.set("token", response.data.token);
       navigate("/dashbord");
       console.log("Réponse de l'API :", response.data.token);
     } catch (error) {
