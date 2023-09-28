@@ -1,1 +1,1 @@
-export const url = "https://api-gestion.onrender.com/"
+export const url = "http://localhost:3000/"

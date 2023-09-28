@@ -47,14 +47,6 @@ const clientSchema = new Schema({
     type: String,
     required: true,
   },
-  valeurNeuve: {
-    type: Number,
-    required: true,
-  },
-  valeurVenale: {
-    type: Number,
-    required: true,
-  },
   dateCirculation: {
     type: Date,
     required: true,

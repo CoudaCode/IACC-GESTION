@@ -48,7 +48,7 @@ const Dashboard = () => {
   
 const adminAuth = async  () => {
   const cookie = Cookies.get("token");
-  const response = await axios.get(`${url}api/admin`, { headers: { Authorization: `Bearer ${cookie}` } });
+  const response = await axios.get(`${url}api/client`, { headers: { Authorization: `Bearer ${cookie}` } });
   return response
 }
 const { data, isLoading, isError, isSuccess } = useQuery("admin", adminAuth);
@@ -67,7 +67,7 @@ console.log(data)
                 height="100"
               />
             </div>
-            {/* <Menu mode="inline" defaultSelectedKeys={["1"]}>
+            <Menu mode="inline" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
                 <Link to="/dashbord">Dashboard</Link>
               </Menu.Item>
@@ -86,8 +86,8 @@ console.log(data)
               <Menu.Item key="6" icon={<ArrowLeftOutlined />}>
                 <Link to="/login">Deconnexion</Link>
               </Menu.Item>
-            </Menu> */}
-            <Menu
+            </Menu>
+            {/* <Menu
               mode="inline"
               onClick={({ key }) => navigate(key)}
               defaultSelectedKeys={["/dashboard"]}
@@ -129,7 +129,7 @@ console.log(data)
                   link: "/login",
                 },
               ]}
-            />
+            /> */}
           </Sider>
           <Layout>
             <Header style={headerStyle}>IACC GESTION</Header>

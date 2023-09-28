@@ -74,28 +74,7 @@ const Bilan = () => {
           <Layout>
             <Header style={headerStyle}>IACC GESTION</Header>
             <Content style={contentStyle}>
-              <div className="cardre">
-                <Card
-                  title="AUTOMOBILE"
-                  style={{
-                    width: 350,
-                    textAlign: "center",
-                    background: "#4D8076",
-                    color: "white",
-                  }}>
-                  <h2>100clients</h2>
-                </Card>
-                <Card
-                  title="SANTE"
-                  style={{
-                    width: 350,
-                    textAlign: "center",
-                    background: "#4D8076",
-                    color: "white",
-                  }}>
-                  <h2>100Clients</h2>
-                </Card>
-              </div>
+              
             </Content>
           </Layout>
         </Layout>

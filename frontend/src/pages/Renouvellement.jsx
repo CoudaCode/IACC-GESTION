@@ -20,7 +20,7 @@ import {
   ArrowLeftOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
-import { Layout, Card, theme, Menu } from "antd";
+import { Layout, Menu } from "antd";
 
 const Renouvellement = () => {
   document.title = "Renouvellement";
@@ -50,8 +50,22 @@ const Renouvellement = () => {
   };
 
   const [formData, setFormData] = useState({
-    field1: "",
-    field2: "",
+    nom: "",
+    prenom: "",
+    addresse: "",
+    email: "",
+    telephone: "",
+    periode: "",
+    immatriculation: "",
+    marque: "",
+    usage: "",
+    puissance: "",
+    energie: "",
+    dateCirculation: "",
+    dateEffet: "",
+    dateEcheance: "",
+    commission: "",
+    MtnCompagnie: "",
     // Ajoutez d'autres champs de formulaire
   });
 
@@ -73,12 +87,45 @@ const Renouvellement = () => {
 
   const handleSubmit = () => {
     // Affichez les données dans la console
+    if (
+      !formData.nom &&
+      !formData.prenom &&
+      !formData.addresse &&
+      !formData.email &&
+      !formData.telephone &&
+      !formData.periode &&
+      !formData.immatriculation &&
+      !formData.marque &&
+      !formData.usage &&
+      !formData.puissance &&
+      !formData.energie &&
+      !formData.dateCirculation &&
+      !formData.dateEffet &&
+      !formData.dateEcheance &&
+      !formData.commission &&
+      !formData.MtnCompagnie
+    ) {
+      alert("remplsisez tous les champs");
+    }
     console.log(formData);
 
     // Réinitialisez le formulaire après soumission
     setFormData({
-      field1: "",
-      field2: "",
+      nom: "",
+      prenom: "",
+      email: "",
+      telephone: "",
+      periode: "",
+      immatriculation: "",
+      marque: "",
+      usage: "",
+      puissance: "",
+      energie: "",
+      dateCirculation: "",
+      dateEffet: "",
+      dateEcheance: "",
+      commission: "",
+      MtnCompagnie: "",
       // Réinitialisez les autres champs
     });
 
