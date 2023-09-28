@@ -19,9 +19,7 @@ export default function Connexion() {
   const onSubmit = async (data) => {
     try {
       console.log(data);
-      const response = await axios.post(`${url}api/super/login`, data, {
-        withCredentials: true,
-      });
+      const response = await axios.post(`${url}api/super/login`, data);
       
       setCookie("token", response.data.token, { path: "/" });
       Cookies.set('token', response.data.token)
