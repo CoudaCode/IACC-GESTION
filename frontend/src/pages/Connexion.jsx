@@ -5,10 +5,11 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { url } from "../utils/url.js";
 import { useCookies } from "react-cookie";
+import {ToastContainer, toast} from 'react-toastify';
+
 import Cookies from "js-cookie";
 export default function Connexion() {
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(["token"]);
   const {
     register,
     handleSubmit,
@@ -20,8 +21,11 @@ export default function Connexion() {
     try {
       console.log(data);
       const response = await axios.post(`${url}api/super/login`, data);
-      Cookies.set("token", response.data.token);
+      Cookies.set("token", response.data.token, {expires: 3600*24})
+
       navigate("/dashbord");
+
+      
       console.log("Réponse de l'API :", response.data.token);
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);

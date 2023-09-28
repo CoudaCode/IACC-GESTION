@@ -9,9 +9,12 @@ import Renouvellement from "./pages/Renouvellement";
 
 import Suivi from "./pages/Suivi";
 import { Routes, Route } from "react-router-dom";
+import { QueryClientProvider,QueryClient } from "react-query";
 function App() {
+  const queryClient = new QueryClient();
   return (
     <>
+    <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/login" exact element={<Connexion />} />
         <Route path="/" exact element={<Acceuil />} />
@@ -22,6 +25,7 @@ function App() {
         <Route path="/suivi" exact element={<Suivi />} />
         <Route path="/inscription" exact element={<Inscription />} />
       </Routes>
+      </QueryClientProvider>
     </>
   );
 }

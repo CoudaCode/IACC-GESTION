@@ -8,13 +8,17 @@ import { verifyToken } from "../utils/token.js";
  * @param {express.NextFunction} next
  */
 const withUser = (req, res, next) => {
-  const token = req.cookies.token;
+  const token = req.headers.authorization.split(" ")[1]; 
+  console.log(token)
   const verifiedToken = verifyToken(token);
   if (verifiedToken){
+
     req.admin = verifiedToken;
     // console.log("req.admin", req.admin);
   } else {
+    console.log('test')
     return res.redirect("/login");
+
   }
   next();
 };

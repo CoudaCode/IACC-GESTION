@@ -15,6 +15,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Card, theme, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 const Dashboard = () => {
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
@@ -41,35 +42,18 @@ const Dashboard = () => {
     backgroundColor: "#3ba0e9",
   };
 
-  const [cookies, removeCookie] = useCookies(["token"]);
-  console.log(cookies.token);
+
+
 
   document.title = "Dasshboard";
-  const [userData, setUserData] = useState(null);
-  const onSubmit = async () => {
-    try {
-      const getCookie = Cookies.get('token')
-      console.log("getCookie", getCookie)
-      console.log();
-      const response = await axios.get(`${url}api/admin`,{
-        headers: {
-          Authorization: `Bearer ${getCookie}`,
-        }
-      });
-    
-      // Gérez la réponse de l'API ici (par exemple, redirigez l'utilisateur si la connexion est réussie)
-      console.log("Réponse de l'API :", response.data);
-    } catch (error) {
-      // Gérez les erreurs ici (par exemple, affichez un message d'erreur)
-      console.error("Erreur lors de la connexion :", error);
-    }
-  };
-  useEffect(() => {
-    // Faites une requête HTTP vers votre route Express
-    console.log(url)
-    onSubmit();
-    
-  }, []);
+  
+const adminAuth = async  () => {
+  const cookie = Cookies.get("token");
+  const response = await axios.get(`${url}api/admin`, { headers: { Authorization: `Bearer ${cookie}` } });
+  return response
+}
+const { data, isLoading, isError, isSuccess } = useQuery("admin", adminAuth);
+console.log(data)
 
   return (
     <>
