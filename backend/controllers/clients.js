@@ -58,18 +58,24 @@ class clientController {
     try {
       const client = await Client.find({});
       console.log("client", client);
-      console.log(req.admin);
-      if (req.admin.role === "superAdmin") {
+      console.log(req.admin.role);
+      const root = req.admin;
+      // Si le rôle n'est pas "admin", retournez une erreur 403 (Interdit)
+      if (!client) {
+        console.log('dans le client')
+        return res
+          .status(404)
+          .json({ status: false, message: "Pas de liste client" });
+      }
+      if (root.role !== "admin") {
+        console.log('dans le role if')
         return res
           .status(403)
-          .json({ statut: false, message: "Laisse la place a l'admin" });
-      } else {
-        if (!client) {
-          return res
-            .status(404)
-            .json({ status: false, message: "pas de liste client" });
-        }
-        return res.status(200).json({
+          .json({ statut: false, message: "Laisse la place à l'admin" });
+      }else {
+
+        console.log('dans le role else')
+        res.status(200).json({
           status: true,
           message: { ...client.toObject() },
         });

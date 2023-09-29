@@ -7,20 +7,23 @@ import { verifyToken } from "../utils/token.js";
  * @param {express.Response} res
  * @param {express.NextFunction} next
  */
-const withUser = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1]; 
-  console.log(token)
-  const verifiedToken = verifyToken(token);
-  if (verifiedToken){
+  const withUser = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    // const token = req.cookies.token;
+    // console.log("token", req.headers.authorization);  
+    console.log("testroken", token)
+    const verifiedToken = verifyToken(token);
 
-    req.admin = verifiedToken;
-    // console.log("req.admin", req.admin);
-  } else {
-    console.log('test')
-    return res.redirect("/login");
+    console.log('verifiedToken', verifiedToken)
+    if (verifiedToken){
+      req.admin = verifiedToken;
+      // console.log("req.admin", req.admin);
+    } else {
+      
+      return res.redirect("/login");
 
-  }
-  next();
-};
+    }
+    next();
+  };
 
 export default withUser;
