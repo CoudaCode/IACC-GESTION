@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
+
 import "./../styles/Bilan.css";
 import {
   RedoOutlined,
@@ -22,7 +23,7 @@ const Bilan = () => {
     lineHeight: "64px",
     backgroundColor: "#1A2639",
     fontFamily: "Montserrat",
-    fontSize: "1.5rem",
+    fontSize: "4vw",
     fontWeight: "bolder",
   };
   const contentStyle = {
@@ -36,43 +37,65 @@ const Bilan = () => {
     color: "#fff",
     backgroundColor: "#3ba0e9",
   };
+  const [collapsed, setCollapsed] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Écoutez les changements de taille de l'écran
+    window.addEventListener("resize", handleResize);
+
+    // Nettoyez l'écouteur lorsque le composant est démonté
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const shouldCollapseSidebar = windowWidth < 768;
 
   return (
     <>
       <div className="Bilan">
         <Layout>
-          <Sider style={siderStyle}>
+          <Sider
+            trigger={null}
+            collapsible
+            collapsed={shouldCollapseSidebar}
+            style={siderStyle}>
             <div className="photo" style={{ marginTop: "2rem" }}>
               <img
                 src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
                 alt="profile"
-                width="100"
-                height="100"
+                width={collapsed ? 50 : 100} 
+                height={collapsed ? 50 : 100}
+                className="img-fluid"
               />
             </div>
             <Menu mode="inline" defaultSelectedKeys={["4"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
-                <Link to="/dashbord">Dashboard</Link>
+                <Link style={{ textDecoration: "none" }} to="/dashbord">Dashboard</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<UserAddOutlined />}>
-                <Link to="/nouvelle-affaire">Nouvelle Affaire</Link>
+                <Link style={{ textDecoration: "none" }} to="/nouvelle-affaire">Nouvelle Affaire</Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<RedoOutlined />}>
-                <Link to="/renouvellement">Renouvellement</Link>
+                <Link style={{ textDecoration: "none" }} to="/renouvellement">Renouvellement</Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<UnorderedListOutlined />}>
-                <Link to="/bilan">Bilan</Link>
+                <Link style={{ textDecoration: "none" }} to="/bilan">Bilan</Link>
               </Menu.Item>
               <Menu.Item key="5" icon={<UploadOutlined />}>
-                <Link to="/suivi">Suivi</Link>
+                <Link style={{ textDecoration: "none" }} to="/suivi">Suivi</Link>
               </Menu.Item>
               <Menu.Item key="6" icon={<ArrowLeftOutlined />}>
-                <Link to="/login">Deconnexion</Link>
+                <Link style={{ textDecoration: "none" }} to="/login">Deconnexion</Link>
               </Menu.Item>
             </Menu>
+        
           </Sider>
           <Layout>
-            <Header style={headerStyle}>IACC GESTION</Header>
+            <Header style={headerStyle}>FinanSimpli</Header>
             <Content style={contentStyle}>
               
             </Content>

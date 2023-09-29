@@ -6,7 +6,7 @@
   }
   
   .Bilan .ant-layout-has-sider {
-    height: 100%;
+    height: auto;
   }
   .Bilan .ant-layout-sider-children {
     background: #1a2639;
@@ -15,7 +15,7 @@
     margin-bottom: 2rem;
   }
   .Bilan .ant-menu-item-selected {
-    background-color: #4d8076;
+    background-color: #4d8076 #1a2639;
     color: white;
   }
   .Bilan .ant-menu {

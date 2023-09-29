@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./../styles/Suivi.css"; // Assurez-vous d'importer le CSS de Bootstrap
+import { url } from "../utils/url";
+import { useQuery } from "react-query";
 import {
   RedoOutlined,
   UnorderedListOutlined,
@@ -11,14 +13,47 @@ import {
 import { Layout, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { Table, Pagination } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-
+// import "bootstrap/dist/css/bootstrap.min.css";
+import Cookies from "js-cookie";
+import axios from "axios";
 const Suivi = () => {
   document.title = "Suivi";
   const { Header, Sider, Content } = Layout;
-
+  const headerStyle = {
+    textAlign: "center",
+    color: "#fff",
+    height: 64,
+    paddingInline: 50,
+    lineHeight: "64px",
+    backgroundColor: "#1A2639",
+    fontFamily: "Montserrat",
+    fontSize: "4vw",
+    fontWeight: "bolder",
+  };
+  const contentStyle = {
+    minHeight: 120,
+    color: "#fff",
+    backgroundColor: "#fff",
+  };
+  const siderStyle = {
+    textAlign: "center",
+    lineHeight: "120px",
+    color: "#fff",
+    backgroundColor: "#3ba0e9",
+  };
   const navigate = useNavigate();
   const [selectedMonth, setSelectedMonth] = useState(1);
+
+  const adminAuth = async () => {
+    const cookie = Cookies.get("token");
+    const response = await axios.get(`${url}api/client`, {
+      headers: { Authorization: `Bearer ${cookie}` },
+    });
+    return response;
+  };
+
+  const { data, isLoading, isError, isSuccess } = useQuery("admin", adminAuth);
+  console.log(data);
 
   const clientsData = [
     {
@@ -36,6 +71,22 @@ const Suivi = () => {
       dateEcheance: "2023-10-15",
     },
   ];
+  const [collapsed, setCollapsed] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Écoutez les changements de taille de l'écran
+    window.addEventListener("resize", handleResize);
+
+    // Nettoyez l'écouteur lorsque le composant est démonté
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  const shouldCollapseSidebar = windowWidth < 768;
 
   const filterDataByMonth = (data, selectedMonth) => {
     return data.filter((client) => {
@@ -52,39 +103,49 @@ const Suivi = () => {
       <div className="Suivi">
         <Layout>
           <Sider
-            style={{
-              textAlign: "center",
-              color: "#fff",
-              lineHeight: "120px",
-              backgroundColor: "#3ba0e9",
-            }}
-          >
+            trigger={null}
+            collapsible
+            collapsed={shouldCollapseSidebar}
+            style={siderStyle}>
             <div className="photo" style={{ marginTop: "2rem" }}>
               <img
                 src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
                 alt="profile"
-                width="100"
-                height="100"
+                width={collapsed ? 50 : 100}
+                height={collapsed ? 50 : 100}
+                className="img-fluid"
               />
             </div>
             <Menu mode="inline" defaultSelectedKeys={["5"]}>
               <Menu.Item key="1" icon={<DashboardOutlined />}>
-                <Link to="/dashbord">Dashboard</Link>
+                <Link style={{ textDecoration: "none" }} to="/dashbord">
+                  Dashboard
+                </Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<UserAddOutlined />}>
-                <Link to="/nouvelle-affaire">Nouvelle Affaire</Link>
+                <Link style={{ textDecoration: "none" }} to="/nouvelle-affaire">
+                  Nouvelle Affaire
+                </Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<RedoOutlined />}>
-                <Link to="/renouvellement">Renouvellement</Link>
+                <Link style={{ textDecoration: "none" }} to="/renouvellement">
+                  Renouvellement
+                </Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<UnorderedListOutlined />}>
-                <Link to="/bilan">Bilan</Link>
+                <Link style={{ textDecoration: "none" }} to="/bilan">
+                  Bilan
+                </Link>
               </Menu.Item>
               <Menu.Item key="5" icon={<UploadOutlined />}>
-                <Link to="/suivi">Suivi</Link>
+                <Link style={{ textDecoration: "none" }} to="/suivi">
+                  Suivi
+                </Link>
               </Menu.Item>
               <Menu.Item key="6" icon={<ArrowLeftOutlined />}>
-                <Link to="/login">Deconnexion</Link>
+                <Link style={{ textDecoration: "none" }} to="/login">
+                  Deconnexion
+                </Link>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -100,24 +161,21 @@ const Suivi = () => {
                 fontFamily: "Montserrat",
                 fontSize: "1.5rem",
                 fontWeight: "bolder",
-              }}
-            >
-              IACC GESTION
+              }}>
+              FinanSimpli
             </Header>
             <Content
               style={{
                 minHeight: 120,
                 color: "#fff",
                 backgroundColor: "#fff",
-              }}
-            >
+              }}>
               <Pagination>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((month) => (
                   <Pagination.Item
                     key={month}
                     active={month === selectedMonth}
-                    onClick={() => setSelectedMonth(month)}
-                  >
+                    onClick={() => setSelectedMonth(month)}>
                     {month}
                   </Pagination.Item>
                 ))}

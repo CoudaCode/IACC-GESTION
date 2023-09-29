@@ -8,7 +8,7 @@ import "primereact/resources/primereact.min.css";
 const Form1 = ({ formData, onChange, onNext }) => {
   return (
     <div>
-      <h2>Inforamtion sur le Client</h2>
+      <h2>Information sur le Client</h2>
       <Form.Label>name</Form.Label> <br />
       <InputText
         name="nom"

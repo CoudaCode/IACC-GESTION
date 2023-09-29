@@ -6,7 +6,7 @@
 }
 
 .Nouvelle .ant-layout-has-sider{
-  height:100%;
+  height:auto;
 }
 .Nouvelle .ant-layout-sider-children {
   background: #1a2639;

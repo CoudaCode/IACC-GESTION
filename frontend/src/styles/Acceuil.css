@@ -1,0 +1,27 @@
+.Acceuil{
+    color: white;
+}
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fadeInAnimation {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .btn-animate {
+    background-color: #1a2639; /* Couleur de fond */
+    color: #ffffff; /* Couleur du texte */
+    transition: background-color 0.3s ease; /* Animation de transition */
+  }
+  
+  .btn-animate:hover {
+    background-color: #2c3d54; /* Couleur de fond au survol */
+  }
