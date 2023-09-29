@@ -62,19 +62,11 @@ class clientController {
       const root = req.admin;
       // Si le rôle n'est pas "admin", retournez une erreur 403 (Interdit)
       if (!client) {
-        console.log('dans le client')
-        return res
-          .status(404)
-          .json({ status: false, message: "Pas de liste client" });
-      }
-      if (root.role !== "admin") {
-        console.log('dans le role if')
-        return res
-          .status(403)
-          .json({ statut: false, message: "Laisse la place à l'admin" });
-      }else {
-
-        console.log('dans le role else')
+        console.log("dans le client");
+        res.status(404).json({ status: false, message: "Pas de liste client" });
+        return;
+      } else {
+        console.log("dans le role else");
         res.status(200).json({
           status: true,
           message: { ...client.toObject() },

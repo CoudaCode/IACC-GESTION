@@ -24,8 +24,6 @@ export default function Connexion() {
       Cookies.set("token", response.data.token, {expires: 3600*24})
 
       navigate("/dashbord");
-
-      
       console.log("Réponse de l'API :", response.data.token);
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);

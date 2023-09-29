@@ -53,7 +53,7 @@ const Suivi = () => {
   };
 
   const { data, isLoading, isError, isSuccess } = useQuery("admin", adminAuth);
-  console.log(data);
+  console.log("data" ,data);
 
   const clientsData = [
     {

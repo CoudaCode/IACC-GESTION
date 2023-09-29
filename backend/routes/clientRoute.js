@@ -4,7 +4,7 @@ import clientController from "../controllers/clients.js";
 const router = Router();
 
 router.get("/:id", withUser, clientController.getClient);
-router.get("/",withUser, clientController.getAllClient);
+router.get("/", clientController.getAllClient);
 router.post("/", clientController.createClient);
 router.put("/:id", clientController.updateClient);
 router.delete("/:id", clientController.deleteClient);

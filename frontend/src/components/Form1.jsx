@@ -49,7 +49,6 @@ const Form1 = ({ formData, onChange, onNext }) => {
         onChange={onChange}
       />{" "}
       <br />
-     
       <button className="btn btn-primary" onClick={onNext}>
         Suivant
       </button>
