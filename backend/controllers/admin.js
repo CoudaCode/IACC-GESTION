@@ -14,13 +14,6 @@ class AdminController {
     try {
       const admin = await Admin.findById(id);
       const root = req.admin;
-      // console.log(root);
-      // if (root.role !== "superAdmin" || root.role !== "admin") {
-      //   return res.status(404).json({
-      //     status: false,
-      //     message: "vous n'etes pas autorisé à effectuer cette action",
-      //   });
-      // } else {
       if (!admin) {
         return res.status(404).json({ status: false, message: " non trouvé" });
       }
@@ -30,7 +23,7 @@ class AdminController {
       });
       // }
     } catch (e) {
-      // console.log("erreur");
+     
       res
         .status(500)
         .json({ status: false, message: "Erreur interne du serveur" });
@@ -175,7 +168,6 @@ class AdminController {
         .status(200)
         .json({ status: true, message: "Modification reuissie !!!" });
     } catch (e) {
-      console.log(e);
       res.status(500).json({ status: false, message: e.message });
     }
   }
@@ -202,7 +194,7 @@ class AdminController {
       }
       res.status(401).json({ status: false, message: "identifiant invalide" });
     } catch (e) {
-      console.log(e);
+  
       res.status(500).json({ status: false, message: "Internal Server Error" });
     }
   }

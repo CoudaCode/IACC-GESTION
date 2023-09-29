@@ -1,6 +1,7 @@
 // Form1.jsx
 import React from "react";
 import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 import { Form } from "react-bootstrap";
 import "primereact/resources/themes/saga-blue/theme.css";
 
@@ -42,7 +43,7 @@ const Form1 = ({ formData, onChange, onNext }) => {
       />{" "}
       <br />
       <Form.Label>Telephone</Form.Label> <br />
-      <InputText
+      <InputNumber
         name="telephone"
         value={formData.telephone}
         required

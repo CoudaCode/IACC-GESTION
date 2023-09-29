@@ -44,7 +44,7 @@ class clientController {
       }
       res.status(404).json({ status: false, message: "pas de liste client" });
     } catch (e) {
-      console.log("erreur");
+    
       res
         .status(500)
         .json({ status: false, message: "Erreur interne du serveur" });
@@ -57,16 +57,15 @@ class clientController {
   static async getAllClient(req, res) {
     try {
       const client = await Client.find({});
-      console.log("client", client);
-      console.log(req.admin.role);
+  
       const root = req.admin;
       // Si le rôle n'est pas "admin", retournez une erreur 403 (Interdit)
       if (!client) {
-        console.log("dans le client");
+      
         res.status(404).json({ status: false, message: "Pas de liste client" });
         return;
       } else {
-        console.log("dans le role else");
+   
         res.status(200).json({
           status: true,
           message: { ...client.toObject() },
@@ -87,7 +86,7 @@ class clientController {
     try {
       const { id } = req.params;
       const admin = req.admin;
-      console.log("admin", admin);
+    
       const adminExist = await Client.findById(id);
 
       if (!adminExist)
@@ -107,7 +106,7 @@ class clientController {
         message: "succes",
       });
     } catch (e) {
-      console.log("erreur");
+    
       res
         .status(500)
         .json({ status: false, message: "Erreur interne du serveur" });

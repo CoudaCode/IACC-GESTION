@@ -21,7 +21,6 @@ export const generateToken = (payload) => {
  */
 export const verifyToken = (token) => {
   try {
-    // console.log("token ", token);
     return jwt.verify(token, process.env.tokenSecret);
   } catch (e) {
     console.log("ERREUR DANS VERIFY TOKEN : ", e);

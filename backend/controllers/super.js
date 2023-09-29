@@ -56,7 +56,7 @@ class superAdminController {
         message: { ...superAdm },
       });
     } catch (e) {
-      console.log("erreur");
+     
       res
         .status(500)
         .json({ status: false, message: "Erreur interne du serveur" });
@@ -110,7 +110,7 @@ class superAdminController {
           .json({ status: false, message: "action non authorisé" });
       } 
       const superAdm = await superAdmin.findById(id);
-      // console.log("superAdm", superAdm);
+  
       if (!superAdm) {
         return res.status(404).json({ status: false, message: "non trouvé" });
       }
@@ -125,49 +125,7 @@ class superAdminController {
    * @param {express.Request} req
    * @param {express.Response} res
    */
-  // static async editAdmin(req, res) {
-  //   // eslint-disable-next-line no-unused-vars
-  //   const { role, password, newPassword, ...body } = req.body;
-  //   const { id } = req.params;
-  //   console.log("newPassword", newPassword)
-  //   try {
-  //     const admin = await Admin.findById(id);
-  //     const auth = req.admin;
-  //     console.log("auth", auth);
-  //     console.log("admin", admin);
-  //     if (admin.role !== "admin") {
-  //       return res
-  //         .status(404)
-  //         .json({ status: false, message: "utiliseur non trouvé" });
-  //     }
-  //     if ((await compareHash(password, admin.password)) && auth._id === id) {
-
-  //       console.log('alert', await compareHash(password, admin.password))
-  //       let updatedAdmin;
-  //       if (newPassword) {
-  //         updatedAdmin = await Admin.updateOne(
-  //           { _id: id },
-  //           {
-  //             ...body,
-  //             password: await hash(newPassword),
-  //           }
-  //         );
-  //       } else {
-  //         updatedAdmin = await Admin.updateOne({ _id: id }, { ...body });
-  //       }
-
-  //       return res.status(200).json({
-  //         status: true,
-  //         message: { ...updatedAdmin, password: undefined },
-  //       });
-  //     }
-
-  //     res.status(401).json({ status: false, message: "action non authorisé" });
-  //   } catch (e) {
-  //     console.log(e);
-  //     res.json({ status: false, message: e.message });
-  //   }
-  // }
+ 
   static async editSuperAdmin(req, res) {
     try {
       const { role, password, newPassord, ...body } = req.body;
@@ -229,7 +187,7 @@ class superAdminController {
       }
       res.status(401).json({ status: false, message: "identifiant invalide" });
     } catch (e) {
-      console.log(e);
+     
       res.status(500).json({ status: false, message: "Internal Server Error" });
     }
   }
